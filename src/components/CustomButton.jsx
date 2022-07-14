@@ -1,9 +1,20 @@
 import React from "react";
 
-function CustomButton({ color, radius, id, label, loading, onClick }) {
+function CustomButton({
+  color,
+  radius,
+  border,
+  borderWidth,
+  id,
+  label,
+  loading,
+  onClick,
+}) {
   const mystyle = {
     backgroundColor: color,
     borderRadius: radius,
+    borderColor: border,
+    borderWidth: borderWidth,
     //Aku tambahin i di Radiusnya, px-2 w-full h-full
   };
   return (
