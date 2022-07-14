@@ -11,31 +11,31 @@ const CardHouse = (props) => {
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
           <p className="font-semibold text-lg mt-4 cursor-pointer" onClick={props.onClickDetailHouse}>
-            {props.titleHouse} Elegant House
+            {props.titleHouse}
           </p>
           <div className="flex my-1">
             <div className="self-center">
               <FaDollarSign />
             </div>
-            <p className="font-normal text-sm ml-1">IDR 200.000.000{props.cost}</p>
+            <p className="font-normal text-sm ml-1">IDR {props.cost}</p>
           </div>
           <div className="flex mb-1">
             <div className="self-center">
               <FaMapMarker />
             </div>
-            <p className="font-normal text-sm ml-1">Surabaya{props.location}</p>
+            <p className="font-normal text-sm ml-1">{props.location}</p>
           </div>
           <div className="flex flex-col lg:flex-row justify-between">
             <div className="flex">
               <FaHome />
               <p className="font-normal text-sm ml-1">
-                Land Area: 200{props.landArea} m<sup>2</sup>
+                Land Area: {props.landArea} m<sup>2</sup>
               </p>
             </div>
             <div className="flex">
               <FaHome />
               <p className="font-normal text-sm ml-1">
-                Building Area: 200{props.buildingArea} m<sup>2</sup>
+                Building Area: {props.buildingArea} m<sup>2</sup>
               </p>
             </div>
           </div>
@@ -53,19 +53,19 @@ const CardContractor = (props) => {
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
           <p className="font-semibold text-lg mt-4 cursor-pointer" onClick={props.onClickDetailContractor}>
-            {props.nameContractor} PT. Bangun Jaya Indonesia
+            {props.nameContractor}
           </p>
           <div className="flex my-1">
             <div className="self-center">
               <FaMapMarker />
             </div>
-            <p className="font-normal text-sm ml-1">Surabaya{props.location}</p>
+            <p className="font-normal text-sm ml-1">{props.location}</p>
           </div>
           <div className="flex mb-1">
             <div className="self-center">
               <FaPhone />
             </div>
-            <p className="font-normal text-sm ml-1">083128287363{props.phone}</p>
+            <p className="font-normal text-sm ml-1">{props.phone}</p>
           </div>
         </div>
       </div>
@@ -81,11 +81,11 @@ const CardPortfolio = (props) => {
           <div className="flex flex-col">
             <p className="font-semibold text-lg cursor-pointer" onClick={props.onClickDetailPortfolio}>
               Client:
-              {props.nameClient} John Doe
+              {props.nameClient}
             </p>
             <p className="font-normal text-md my-1">
               Cost: IDR
-              {props.cost} 200.000.000
+              {props.cost}
             </p>
           </div>
           <div>{props.children}</div>
