@@ -4,6 +4,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { Input } from "../components/Input";
 import { TrTd, TrTdDescription } from "../components/TrTd";
+import { Bidder, Owner } from "../components/Bidder";
 
 function CekComponent() {
   return (
@@ -127,6 +128,20 @@ function CekComponent() {
               "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id dicta voluptatibus provident corrupti deserunt, laboriosam quaerat ullam facere placeat, eveniet porro, nemo accusamus eum minima aspernatur. Nam, illum quasi. Eius?"
             }
           />
+        </div>
+
+        {/* ----------------- Bidder ------------- */}
+        <div className="flex flex-col gap-4">
+          <p className="font-bold text-2xl mb-4">Bidder</p>
+          <Bidder />
+          <Bidder />
+        </div>
+
+        {/* ----------------- Owner ------------- */}
+        <div className="flex flex-col gap-4">
+          <p className="font-bold text-2xl mb-4">Owner</p>
+          <Owner />
+          <Owner />
         </div>
       </div>
     </div>
