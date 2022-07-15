@@ -44,7 +44,7 @@ function Login() {
           icon: "success",
           title: "Login Successfully",
         });
-        navigate("/homepage");
+        navigate("/my-list-house");
       })
       .catch((err) =>
         swal({
@@ -83,7 +83,7 @@ function Login() {
       </div>
     );
   } else {
-    return <Navigate to="/homepage" />;
+    return <Navigate to="/my-list-house" />;
   }
 }
 

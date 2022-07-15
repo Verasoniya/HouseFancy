@@ -10,31 +10,31 @@ const CardHouse = (props) => {
       <img src={props.imageHouse ? props.imageHouse : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageHouse} />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
-          <p className="font-semibold text-lg mt-4 cursor-pointer" onClick={props.onClickDetailHouse}>
+          <p className="font-semibold text-sm mt-4 cursor-pointer" onClick={props.onClickDetailHouse}>
             {props.titleHouse}
           </p>
           <div className="flex my-1">
             <div className="self-center">
-              <FaDollarSign />
+              <FaDollarSign className="text-xs" />
             </div>
-            <p className="font-normal text-sm ml-1">IDR {props.cost}</p>
+            <p className="font-normal text-xs ml-1">IDR {props.cost}</p>
           </div>
           <div className="flex mb-1">
             <div className="self-center">
-              <FaMapMarker />
+              <FaMapMarker className="text-xs" />
             </div>
-            <p className="font-normal text-sm ml-1">{props.location}</p>
+            <p className="font-normal text-xs ml-1">{props.location}</p>
           </div>
           <div className="flex flex-col lg:flex-row justify-between">
             <div className="flex">
-              <FaHome />
-              <p className="font-normal text-sm ml-1">
+              <FaHome className="text-xs self-center" />
+              <p className="font-normal text-xs ml-1">
                 Land Area: {props.landArea} m<sup>2</sup>
               </p>
             </div>
             <div className="flex">
-              <FaHome />
-              <p className="font-normal text-sm ml-1">
+              <FaHome className="text-xs self-center" />
+              <p className="font-normal text-xs ml-1">
                 Building Area: {props.buildingArea} m<sup>2</sup>
               </p>
             </div>
@@ -52,20 +52,20 @@ const CardContractor = (props) => {
       <img src={props.imageContractor ? props.imageContractor : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageContractor} />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
-          <p className="font-semibold text-lg mt-4 cursor-pointer" onClick={props.onClickDetailContractor}>
+          <p className="font-semibold text-md mt-4 cursor-pointer" onClick={props.onClickDetailContractor}>
             {props.nameContractor}
           </p>
           <div className="flex my-1">
             <div className="self-center">
-              <FaMapMarker />
+              <FaMapMarker className="text-xs" />
             </div>
-            <p className="font-normal text-sm ml-1">{props.location}</p>
+            <p className="font-normal text-xs ml-1">{props.location}</p>
           </div>
           <div className="flex mb-1">
             <div className="self-center">
-              <FaPhone />
+              <FaPhone className="text-xs" />
             </div>
-            <p className="font-normal text-sm ml-1">{props.phone}</p>
+            <p className="font-normal text-xs ml-1">{props.phone}</p>
           </div>
         </div>
       </div>
@@ -79,11 +79,11 @@ const CardPortfolio = (props) => {
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col lg:flex-row justify-between mb-3 mx-2 mt-4 lg:w-full ">
           <div className="flex flex-col">
-            <p className="font-semibold text-lg cursor-pointer" onClick={props.onClickDetailPortfolio}>
+            <p className="font-semibold text-md cursor-pointer" onClick={props.onClickDetailPortfolio}>
               Client:
               {props.nameClient}
             </p>
-            <p className="font-normal text-md my-1">
+            <p className="font-normal text-xs my-1">
               Cost: IDR
               {props.cost}
             </p>

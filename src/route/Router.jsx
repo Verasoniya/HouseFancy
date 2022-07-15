@@ -6,6 +6,8 @@ import { TokenContext } from "../context/AuthContext";
 import HomePage from "../pages/HomePage";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import MyListHouse from "../pages/MyListHouse";
+import EditHouse from "../pages/MyListHouse";
 
 axios.defaults.baseURL = "https://virtserver.swaggerhub.com/faizalsundara/Kelompok1/1.0.0/";
 
@@ -25,9 +27,11 @@ const RoutesHouseFancy = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/houses/:house_id" element={<EditHouse />} />
+            <Route path="/my-list-house" element={<MyListHouse />} />
             <Route path="/homepage" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route
               path="*"
               element={
