@@ -15,13 +15,14 @@ function MyListHouse() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [house, setHouse] = useState([]);
+  const [offset, setOffset] = useState(13);
 
   useEffect(() => {
     fetchMyListHouse();
   }, []);
 
   const fetchMyListHouse = async () => {
-    apiRequest("houses/mylisthouses?limit=6&offset=0", "GET", {})
+    apiRequest("houses/mylisthouses?limit=12&offset=0", "GET", {})
       .then((res) => {
         const { data } = res;
         console.log(data);
@@ -34,6 +35,26 @@ function MyListHouse() {
         });
       })
       .finally(() => setLoading(false));
+  };
+
+  const fetchMoreListHouse = async () => {
+    const newOffset = offset + 12;
+    apiRequest(`houses/mylisthouses?limit=12&offset=${offset}`, "GET", {})
+      .then((res) => {
+        const { data } = res.data;
+        console.log(res.data);
+        const temp = house.slice();
+        temp.push(...data);
+        setHouse(temp);
+        console.log(temp);
+        setOffset(newOffset);
+      })
+      .catch((err) =>
+        swal({
+          icon: "error",
+          title: err,
+        })
+      );
   };
 
   const handleDelHouse = async (item) => {
@@ -90,7 +111,7 @@ function MyListHouse() {
         </div>
         <div className="flex justify-end w-11/12">
           <div className="w-20 mb-10">
-            <CustomButton label={"More"} />
+            <CustomButton label={"More"} onClick={() => fetchMoreListHouse()} />
           </div>
         </div>
       </Layout>
