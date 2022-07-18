@@ -11,15 +11,21 @@ const Bidder = (props) => {
       <div className="w-[50px] h-[50px]">
         <img src={logo} alt={logo} width={50} height={50} className="rounded-full" />
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 w-full">
         <div className="flex gap-4">
           <p className="font-bold text-lg self-center">{props.fullname}</p>
-          <p className="text-md self-center">IDR {props.bidNominal}</p>
+          <p className="text-sm self-center">IDR {props.bidNominal}</p>
         </div>
-        <div className="flex gap-3">
-          <CustomButton icon={<FaWhatsapp className="text-2xl mr-2" />} label={"CHAT_BIDDER"} color={"green"} onClick={props.onClickChat} />
-          <CustomButton label={"DEAL"} onClick={props.onClickDeal} />
-          <CustomButton label={"CANCEL"} color={"white"} border={"red"} borderWidth={2} textColor={"red"} onClick={props.onClickCancel} />
+        <div className="flex flex-col lg:flex-row gap-3 text-xs">
+          <div className="w-full lg:w-1/4">
+            <CustomButton icon={<FaWhatsapp className="text-lg mr-1" />} label={"CHAT BIDDER"} color={"green"} border={"green"} borderWidth={2} onClick={props.onClickChat} />
+          </div>
+          <div className="w-full lg:w-1/6">
+            <CustomButton label={"DEAL"} border={"blue"} borderWidth={2} onClick={props.onClickDeal} />
+          </div>
+          <div className="w-full lg:w-1/6">
+            <CustomButton label={"CANCEL"} color={"white"} border={"red"} borderWidth={2} textColor={"red"} onClick={props.onClickCancel} />
+          </div>
         </div>
       </div>
     </div>

@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import { TokenContext } from "../context/AuthContext";
-import HomePage from "../pages/HomePage";
-import Register from "../pages/Register";
-import Login from "../pages/Login";
+import HouseDetailSeller from "../pages/HouseDetailSeller";
 import MyListHouse from "../pages/MyListHouse";
 import EditHouse from "../pages/MyListHouse";
+import Register from "../pages/Register";
+import HomePage from "../pages/HomePage";
+import Login from "../pages/Login";
 
 axios.defaults.baseURL = "https://virtserver.swaggerhub.com/faizalsundara/Kelompok1/1.0.0/";
 
@@ -28,6 +29,7 @@ const RoutesHouseFancy = () => {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/houses/:house_id" element={<EditHouse />} />
+            <Route path="/house-detail-seller/:house_id" element={<HouseDetailSeller />} />
             <Route path="/my-list-house" element={<MyListHouse />} />
             <Route path="/homepage" element={<HomePage />} />
             <Route path="/register" element={<Register />} />

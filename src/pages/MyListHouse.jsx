@@ -10,6 +10,7 @@ import CustomButton from "../components/CustomButton";
 import { CardHouse } from "../components/Card";
 import Layout from "../components/Layout";
 import logo from "../assets/logoblue.png";
+import { withRouter } from "../context/navigations";
 
 function MyListHouse() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function MyListHouse() {
   }, []);
 
   const fetchMyListHouse = async () => {
-    apiRequest("houses/mylisthouses?limit=12&offset=0", "GET", {})
+    apiRequest("/houses/mylisthouses?limit=12&offset=0", "GET", {})
       .then((res) => {
         const { data } = res;
         console.log(data);
@@ -39,7 +40,7 @@ function MyListHouse() {
 
   const fetchMoreListHouse = async () => {
     const newOffset = offset + 12;
-    apiRequest(`houses/mylisthouses?limit=12&offset=${offset}`, "GET", {})
+    apiRequest(`/houses/mylisthouses?limit=12&offset=${offset}`, "GET", {})
       .then((res) => {
         const { data } = res.data;
         console.log(res.data);
@@ -76,11 +77,13 @@ function MyListHouse() {
   };
 
   if (loading) {
-    <div className="flex justify-center content-center">
-      <div className="flex flex-col h-screen justify-center ">
-        <img src={logo} alt="Loading" width={200} height={200} className="animate-pulse" />
+    return (
+      <div className="flex justify-center content-center">
+        <div className="flex flex-col h-screen justify-center ">
+          <img src={logo} alt="Loading" width={200} height={200} className="animate-pulse" />
+        </div>
       </div>
-    </div>;
+    );
   } else {
     return (
       <Layout>
@@ -93,7 +96,16 @@ function MyListHouse() {
         <div className="flex items-center">
           <div className="grid grid-flow-row auto-rows-max w-full gap-6 my-8 mx-10 lg:mx-24 grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
             {house.map((item) => (
-              <CardHouse key={item.id} imageHouse={item.image_url[1]} titleHouse={item.title} cost={item.price} location={item.location} landArea={item.surface_area} buildingArea={item.building_area}>
+              <CardHouse
+                key={item.id}
+                imageHouse={item.image_url[1]}
+                titleHouse={item.title}
+                cost={item.price}
+                location={item.location}
+                landArea={item.surface_area}
+                buildingArea={item.building_area}
+                onClickDetailHouse={() => navigate(`/house-detail-seller/${item.id}`)}
+              >
                 <div className="flex justify-between mt-3">
                   <div className="flex gap-2">
                     <div className="w-8">
@@ -119,4 +131,4 @@ function MyListHouse() {
   }
 }
 
-export default MyListHouse;
+export default withRouter(MyListHouse);
