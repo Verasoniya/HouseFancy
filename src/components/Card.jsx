@@ -3,14 +3,27 @@ import { FaDollarSign } from "react-icons/fa";
 import { FaMapMarker } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const CardHouse = (props) => {
   return (
     <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <img src={props.imageHouse ? props.imageHouse : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageHouse} />
+      <Link to={`/detail/${props.id}`}>
+        <img
+          src={
+            props.imageHouse
+              ? props.imageHouse["1"].image_url
+              : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+          }
+          alt={props.imageHouse}
+        />
+      </Link>
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
-          <p className="font-semibold text-lg mt-4 cursor-pointer" onClick={props.onClickDetailHouse}>
+          <p
+            className="font-semibold text-lg mt-4 cursor-pointer"
+            onClick={props.onClickDetailHouse}
+          >
             {props.titleHouse}
           </p>
           <div className="flex my-1">
@@ -49,10 +62,22 @@ const CardHouse = (props) => {
 const CardContractor = (props) => {
   return (
     <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <img src={props.imageContractor ? props.imageContractor : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageContractor} />
+      <Link to={`/detailcontractor/${props.id}`}>
+        <img
+          src={
+            props.imageContractor
+              ? props.imageContractor
+              : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+          }
+          alt={props.imageContractor}
+        />
+      </Link>
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
-          <p className="font-semibold text-lg mt-4 cursor-pointer" onClick={props.onClickDetailContractor}>
+          <p
+            className="font-semibold text-lg mt-4 cursor-pointer"
+            onClick={props.onClickDetailContractor}
+          >
             {props.nameContractor}
           </p>
           <div className="flex my-1">
@@ -72,14 +97,26 @@ const CardContractor = (props) => {
     </div>
   );
 };
+
 const CardPortfolio = (props) => {
   return (
     <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <img src={props.imagePortfolio ? props.imagePortfolio : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imagePortfolio} />
+      <img
+        src={
+          props.imagePortfolio
+            ? props.imagePortfolio
+            : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+        }
+        alt={props.imagePortfolio}
+      />
+
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col lg:flex-row justify-between mb-3 mx-2 mt-4 lg:w-full ">
           <div className="flex flex-col">
-            <p className="font-semibold text-lg cursor-pointer" onClick={props.onClickDetailPortfolio}>
+            <p
+              className="font-semibold text-lg cursor-pointer"
+              onClick={props.onClickDetailPortfolio}
+            >
               Client:
               {props.nameClient}
             </p>

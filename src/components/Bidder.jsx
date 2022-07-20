@@ -9,7 +9,13 @@ const Bidder = (props) => {
   return (
     <div className="flex gap-4">
       <div className="w-[50px] h-[50px]">
-        <img src={logo} alt={logo} width={50} height={50} className="rounded-full" />
+        <img
+          src={logo}
+          alt={logo}
+          width={50}
+          height={50}
+          className="rounded-full"
+        />
       </div>
       <div className="flex flex-col gap-3">
         <div className="flex gap-4">
@@ -17,9 +23,52 @@ const Bidder = (props) => {
           <p className="text-md self-center">IDR {props.bidNominal}</p>
         </div>
         <div className="flex gap-3">
-          <CustomButton icon={<FaWhatsapp className="text-2xl mr-2" />} label={"CHAT_BIDDER"} color={"green"} onClick={props.onClickChat} />
+          <CustomButton
+            icon={<FaWhatsapp className="text-2xl mr-2" />}
+            label={"CHAT_BIDDER"}
+            color={"green"}
+            onClick={props.onClickChat}
+          />
           <CustomButton label={"DEAL"} onClick={props.onClickDeal} />
-          <CustomButton label={"CANCEL"} color={"white"} border={"red"} borderWidth={2} textColor={"red"} onClick={props.onClickCancel} />
+          <CustomButton
+            label={"CANCEL"}
+            color={"white"}
+            border={"red"}
+            borderWidth={2}
+            textColor={"red"}
+            onClick={props.onClickCancel}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+const BidderHouse = (props) => {
+  return (
+    <div className="flex gap-4">
+      <div className="w-[50px] h-[50px]">
+        <img
+          src={logo}
+          alt={logo}
+          width={50}
+          height={50}
+          className="rounded-full"
+        />
+      </div>
+      <div className="flex flex-col gap-3">
+        <div className="flex gap-4">
+          <p className="font-bold text-lg self-center">{props.fullname}</p>
+          <p className="text-md self-center">IDR {props.bidNominal}</p>
+        </div>
+        <div className="flex gap-3">
+          <CustomButton
+            label={"CANCEL"}
+            color={"white"}
+            border={"red"}
+            borderWidth={2}
+            textColor={"red"}
+            onClick={props.onClickCancel}
+          />
         </div>
       </div>
     </div>
@@ -29,7 +78,13 @@ const Owner = (props) => {
   return (
     <div className="flex gap-4">
       <div className="w-[50px] h-[50px]">
-        <img src={logo} alt={logo} width={50} height={50} className="rounded-full" />
+        <img
+          src={logo}
+          alt={logo}
+          width={50}
+          height={50}
+          className="rounded-full"
+        />
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-4">
@@ -55,4 +110,4 @@ const Owner = (props) => {
   );
 };
 
-export { Bidder, Owner };
+export { Bidder, BidderHouse, Owner };
