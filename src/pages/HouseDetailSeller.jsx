@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { FaEnvelope, FaPhone, FaUserAlt, FaChevronCircleLeft, FaChevronCircleRight, FaMapMarker } from "react-icons/fa";
 
@@ -10,14 +9,18 @@ import { TrTd, TrTdDescription } from "../components/TrTd";
 
 import { withRouter } from "../context/navigations";
 
+import "../../src/mycss.css";
 import logo from "../assets/logoblue.png";
 import { apiRequest } from "../context/apiRequest";
-import "../../src/mycss.css";
+import { TokenContext } from "../context/AuthContext";
+import CustomButton from "../components/CustomButton";
 
 function HouseDetailSeller(props) {
-  const navigate = useNavigate();
+  const { setToken } = useContext(TokenContext);
   const [loading, setLoading] = useState(true);
   const [house, setHouse] = useState([]);
+  const [bidder, setBidder] = useState([]);
+  const [offset, setOffset] = useState(13);
   const [current, setCurrent] = useState(0);
 
   const SliderData = [
@@ -39,12 +42,13 @@ function HouseDetailSeller(props) {
   ];
   const length = SliderData.length;
 
+  const { house_id } = props.params;
+
   useEffect(() => {
     fetchHouseDetail();
   }, []);
 
   const fetchHouseDetail = () => {
-    const { house_id } = props.params;
     apiRequest(`/houses/${house_id}`, "GET", {})
       .then((res) => {
         const { data } = res;
@@ -57,7 +61,43 @@ function HouseDetailSeller(props) {
           title: err,
         });
       })
+      .finally(() => fetchBidder());
+  };
+
+  const fetchBidder = () => {
+    apiRequest(`/negotiations/${house_id}?limit=12&offset=0`, "GET", {})
+      .then((res) => {
+        const { data } = res;
+        setBidder(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        swal({
+          icon: "error",
+          title: err,
+        });
+      })
       .finally(() => setLoading(false));
+  };
+
+  const fetchMoreListBidder = async () => {
+    const newOffset = offset + 12;
+    apiRequest(`/negotiations/${house_id}?limit=12&offset=${offset}`, "GET", {})
+      .then((res) => {
+        const { data } = res.data;
+        console.log(res.data);
+        const temp = bidder.slice();
+        temp.push(...data);
+        setBidder(temp);
+        console.log(temp);
+        setOffset(newOffset);
+      })
+      .catch((err) =>
+        swal({
+          icon: "error",
+          title: err,
+        })
+      );
   };
 
   const nextSlide = () => {
@@ -71,6 +111,18 @@ function HouseDetailSeller(props) {
   if (!Array.isArray(SliderData) || SliderData.length <= 0) {
     return null;
   }
+
+  const handleChatBidder = (item) => {
+    window.open(`https://wa.me/62${item}?text=Halo%20Saya%20pemilik%20rumah%20${house.title}.`, "_blank");
+  };
+
+  const handleDeal = () => {
+    //
+  };
+
+  const handleCancel = () => {
+    //
+  };
 
   if (loading) {
     return (
@@ -92,7 +144,7 @@ function HouseDetailSeller(props) {
                 {SliderData.map((slide, index) => {
                   return (
                     <div className={index === current ? "slide active" : "slide"} key={index}>
-                      {index === current && <img src={slide.image} alt="travel image" className="w-[800px] h-[200px] lg:h-[300px]" />}
+                      {index === current && <img src={slide.image} alt="house image" className="w-[800px] h-[200px] lg:h-[300px]" />}
                     </div>
                   );
                 })}
@@ -140,14 +192,30 @@ function HouseDetailSeller(props) {
               </div>
             </div>
             <div className="border-t border-dashed border-blue-400 w-full mt-16" />
-            <p className="font-semibold text-2xl self-start">Bidder</p>
-            <div className="self-start w-2/3">
-              <Bidder />
-            </div>
-            <p className="font-semibold text-2xl self-start">Owner</p>
-            <div className="self-start w-2/3">
-              <Owner />
-            </div>
+            {house.status === "Sold out" ? (
+              <div className="self-start w-2/3 mb-10">
+                <p className="font-semibold text-2xl mb-6">Owner</p>
+                <Owner />
+              </div>
+            ) : (
+              <div className="self-start w-2/3 mb-10">
+                <p className="font-semibold text-2xl mb-6">Bidder</p>
+                {bidder.map((item) => (
+                  <Bidder
+                    key={item.id}
+                    imageProfile={item.user.image_url}
+                    fullname={item.user.full_name}
+                    bidNominal={item.nego}
+                    onClickChat={() => handleChatBidder(item.user.phone_number.substring(1))}
+                    onClickDeal={() => handleDeal()}
+                    onClickCancel={() => handleCancel()}
+                  />
+                ))}
+                <div className="w-20 mb-10">
+                  <CustomButton label={"More"} onClick={() => fetchMoreListBidder()} />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </Layout>

@@ -9,8 +9,14 @@ import EditHouse from "../pages/MyListHouse";
 import Register from "../pages/Register";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
+import JoinContractor from "../pages/JoinContractor";
+import MyContractorProfile from "../pages/MyContractorProfile";
+import EditPortfolio from "../pages/EditPortfolio";
+import AddPortfolio from "../pages/AddPortfolio";
+import AddHouse from "../pages/AddHouse";
 
-axios.defaults.baseURL = "https://virtserver.swaggerhub.com/faizalsundara/Kelompok1/1.0.0/";
+axios.defaults.baseURL = "https://housefancy.site/";
+// axios.defaults.baseURL = "https://virtserver.swaggerhub.com/faizalsundara/Kelompok1/1.0.0/";
 
 const RoutesHouseFancy = () => {
   const [token, setToken] = useState(null);
@@ -28,12 +34,22 @@ const RoutesHouseFancy = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/houses/:house_id" element={<EditHouse />} />
-            <Route path="/house-detail-seller/:house_id" element={<HouseDetailSeller />} />
-            <Route path="/my-list-house" element={<MyListHouse />} />
-            <Route path="/homepage" element={<HomePage />} />
+            {/* <Route path="/homepage" element={<HomePage />} /> */}
+
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+
+            <Route path="/house-detail-seller/:house_id" element={<HouseDetailSeller />} />
+            <Route path="/houses/:house_id" element={<EditHouse />} />
+            <Route path="/my-list-house" element={<MyListHouse />} />
+            <Route path="/add-house" element={<AddHouse />} />
+
+            <Route path="/portfolios/details/:portfolio_id" element={<EditPortfolio />} />
+            <Route path="/add-portfolio" element={<AddPortfolio />} />
+
+            <Route path="/my-contractor-profile" element={<MyContractorProfile />} />
+            <Route path="/join-contractor" element={<JoinContractor />} />
+
             <Route
               path="*"
               element={

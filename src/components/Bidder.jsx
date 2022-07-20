@@ -3,13 +3,12 @@ import { FaPhone } from "react-icons/fa";
 import CustomButton from "./CustomButton";
 import { FaEnvelope } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
-import logo from "../assets/background-banner.jpg";
 
 const Bidder = (props) => {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 mb-6">
       <div className="w-[50px] h-[50px]">
-        <img src={logo} alt={logo} width={50} height={50} className="rounded-full" />
+        <img src={props.imageProfile} alt={props.imageProfile} width={50} height={50} className="rounded-full" />
       </div>
       <div className="flex flex-col gap-3 w-full">
         <div className="flex gap-4">
@@ -21,7 +20,7 @@ const Bidder = (props) => {
             <CustomButton icon={<FaWhatsapp className="text-lg mr-1" />} label={"CHAT BIDDER"} color={"green"} border={"green"} borderWidth={2} onClick={props.onClickChat} />
           </div>
           <div className="w-full lg:w-1/6">
-            <CustomButton label={"DEAL"} border={"blue"} borderWidth={2} onClick={props.onClickDeal} />
+            <CustomButton label={"DEAL"} border={"#1D4ED8"} borderWidth={2} onClick={props.onClickDeal} />
           </div>
           <div className="w-full lg:w-1/6">
             <CustomButton label={"CANCEL"} color={"white"} border={"red"} borderWidth={2} textColor={"red"} onClick={props.onClickCancel} />
@@ -35,7 +34,7 @@ const Owner = (props) => {
   return (
     <div className="flex gap-4">
       <div className="w-[50px] h-[50px]">
-        <img src={logo} alt={logo} width={50} height={50} className="rounded-full" />
+        <img src={props.imageProfile} alt={props.imageProfile} width={50} height={50} className="rounded-full" />
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-4">

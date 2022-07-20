@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
@@ -11,9 +11,12 @@ import { CardHouse } from "../components/Card";
 import Layout from "../components/Layout";
 import logo from "../assets/logoblue.png";
 import { withRouter } from "../context/navigations";
+import { TokenContext } from "../context/AuthContext";
 
 function MyListHouse() {
+  const { setToken } = useContext(TokenContext);
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
   const [house, setHouse] = useState([]);
   const [offset, setOffset] = useState(13);
@@ -25,7 +28,8 @@ function MyListHouse() {
   const fetchMyListHouse = async () => {
     apiRequest("/houses/mylisthouses?limit=12&offset=0", "GET", {})
       .then((res) => {
-        const { data } = res;
+        const { data } = res.data;
+        // const { data } = res;
         console.log(data);
         setHouse(data);
       })
@@ -65,7 +69,6 @@ function MyListHouse() {
           icon: "success",
           title: "Successfully Delete",
         });
-        // window.location.reload(true);
       })
       .catch((err) =>
         swal({
@@ -87,14 +90,14 @@ function MyListHouse() {
   } else {
     return (
       <Layout>
-        <div className="w-14 text-3xl absolute bottom-12 right-8 md:bottom-14 md:right-6">
+        <div className="w-14 text-3xl absolute bottom-12 right-8 md:bottom-14 md:right-16">
           <CustomButton label={<FaPlus className="text-sm" />} radius={"50%"} padding={20} onClick={() => navigate("/add-house")} />
         </div>
         <div className="flex justify-center">
           <p className="font-bold text-xl text-neutral-900 mt-10">My List Sale House</p>
         </div>
         <div className="flex items-center">
-          <div className="grid grid-flow-row auto-rows-max w-full gap-6 my-8 mx-10 lg:mx-24 grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
+          <div className="grid grid-flow-row auto-rows-max w-full gap-6 my-8 mx-10 lg:mx-28 grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
             {house.map((item) => (
               <CardHouse
                 key={item.id}
