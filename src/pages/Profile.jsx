@@ -48,6 +48,28 @@ const Profile = () => {
       });
   };
 
+  const handleDelProfile = () => {
+    axios
+      .delete(`https://housefancy.site/users`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(() =>
+        swal({
+          icon: "success",
+          title: "successful deleting profile",
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        swal({
+          icon: "error",
+          title: err.response.data.message,
+        });
+      });
+  };
+
   useEffect(() => {
     axios
       .get(`https://housefancy.site/users`, {
@@ -85,6 +107,7 @@ const Profile = () => {
               border={"red"}
               borderWidth={2}
               textColor={"red"}
+              onClick={() => handleDelProfile()}
             />
           </div>
         </div>

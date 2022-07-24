@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const CardHouse = (props) => {
   console.log(props.imageHouse);
   return (
-    <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
+    <div className="container flex flex-col justify-between bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
       <Link to={`/detail/${props.id}`}>
         <img
           src={
