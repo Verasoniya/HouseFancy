@@ -6,7 +6,7 @@ import { FaHome } from "react-icons/fa";
 
 const CardHouse = (props) => {
   return (
-    <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
+    <div className="container flex flex-col justify-between bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
       <img src={Object.keys(props.imageHouse).length !== 0 ? props.imageHouse["1"].image_url : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageHouse} />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
@@ -48,7 +48,7 @@ const CardHouse = (props) => {
 
 const CardContractor = (props) => {
   return (
-    <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
+    <div className="container flex flex-col justify-between bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
       <img src={props.imageContractor ? props.imageContractor : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageContractor} />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
@@ -74,7 +74,7 @@ const CardContractor = (props) => {
 };
 const CardPortfolio = (props) => {
   return (
-    <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
+    <div className="container flex flex-col justify-between bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
       <img src={Object.keys(props.imagePortfolio).length !== 0 ? props.imagePortfolio["1"].image_url : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imagePortfolio} />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col lg:flex-row justify-between mb-3 mx-2 mt-4 lg:w-full ">
