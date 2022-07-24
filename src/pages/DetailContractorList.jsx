@@ -58,7 +58,11 @@ const DetailContractorList = () => {
         </p>
         <div className="w-full lg:w-1/2">
           <img
-            src={contractor.image_url}
+            src={
+              Object.keys(contractor.image_url).length !== 0
+                ? contractor.image_url
+                : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+            }
             alt="img-profile"
             className="rounded-xl mb-3"
           />
@@ -100,7 +104,8 @@ const DetailContractorList = () => {
           <div className="grid grid-flow-row auto-rows-max w-full gap-8   lg: grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
             {portfolio.map((data) => (
               <CardPortfolio
-                imagePortfolio={data.image_url["1"].image_url}
+                id={data.id}
+                imagePortfolio={data.image_url}
                 nameClient={data.client_name}
                 cost={data.price}
               />

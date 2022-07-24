@@ -102,14 +102,16 @@ const CardContractor = (props) => {
 const CardPortfolio = (props) => {
   return (
     <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <img
-        src={
-          props.imagePortfolio
-            ? props.imagePortfolio
-            : "https://via.placeholder.com/400x200.jpg?text=No+Image"
-        }
-        alt={props.imagePortfolio}
-      />
+      <Link to={`/detailportfolio/${props.id}`}>
+        <img
+          src={
+            Object.keys(props.imagePortfolio).length !== 0
+              ? props.imagePortfolio["1"].image_url
+              : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+          }
+          alt={props.imagePortfolio}
+        />
+      </Link>
 
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col lg:flex-row justify-between mb-3 mx-2 mt-4 lg:w-full ">

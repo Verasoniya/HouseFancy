@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 
 // import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+
 import { useParams } from "react-router-dom";
 
 import Layout from "../components/Layout";
@@ -142,16 +144,23 @@ const DetailPortfolioContractor = () => {
                 content={portfolio.description}
               />
             </div>
-            <div className="flex flex-col w-full lg:w-2/5 mt-8 lg:mt-0">
-              {/* <div className="w-full z-0">map</div> */}
-              {/* <div className="w-full mt-8 z-0">
-              <MapContainer center={[house.longitude, house.latitude]} zoom={13} scrollWheelZoom={false} style={{ height: "250px" }}>
-                <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={[house.longitude, house.latitude]}>
-                  <Popup>{house.location}</Popup>
-                </Marker>
-              </MapContainer>
-            </div> */}
+            <div className="flex flex-col w-full lg:w-2/5 mt-8 lg:mt-0 lg:self-start">
+              <div className="w-full mt-8 lg:mt-0">
+                <MapContainer
+                  center={[portfolio.longitude, portfolio.latitude]}
+                  zoom={13}
+                  scrollWheelZoom={false}
+                  style={{ height: "250px" }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={[portfolio.longitude, portfolio.latitude]}>
+                    <Popup>{portfolio.location}</Popup>
+                  </Marker>
+                </MapContainer>
+              </div>
             </div>
           </div>
         </div>
