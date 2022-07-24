@@ -23,6 +23,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import swal from "sweetalert";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import "../../src/mycss.css"
 
 const defaultData = {
   title: "",

@@ -17,6 +17,7 @@ const CardHouse = (props) => {
               : "https://via.placeholder.com/400x200.jpg?text=No+Image"
           }
           alt={props.imageHouse}
+          className="h-48 w-full object-cover"
         />
       </Link>
       <div className="flex flex-col lg:flex-row justify-between">
@@ -63,14 +64,17 @@ const CardHouse = (props) => {
 const CardContractor = (props) => {
   return (
     <div className="container flex flex-col justify-between bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <img
-        src={
-          props.imageContractor
-            ? props.imageContractor
-            : "https://via.placeholder.com/400x200.jpg?text=No+Image"
-        }
-        alt={props.imageContractor}
-      />
+      <Link to={`/detailcontractor/${props.id}`}>
+        <img
+          src={
+            props.imageContractor
+              ? props.imageContractor
+              : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+          }
+          alt={props.imageContractor}
+          className="h-48 w-full object-cover"
+        />
+      </Link>
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
           <p
