@@ -66,7 +66,7 @@ const BidderHouse = ({ id, user_id, token }) => {
   }, []);
 
   const handleDelete = (id) => {
-    if (window.confirm(`Are you sure you want to cancel the bidded?`)) {
+    if (window.confirm(`Are you sure to delete?`)) {
       axios
         .delete(`https://housefancy.site/negotiations/${id}`, {
           headers: {
@@ -76,7 +76,7 @@ const BidderHouse = ({ id, user_id, token }) => {
         .then(() =>
           swal({
             icon: "success",
-            title: "successfully canceled",
+            title: "success to delete",
           })
         )
         .catch((err) => console.log(err.response.data.message));

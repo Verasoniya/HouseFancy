@@ -45,6 +45,12 @@ const Header = () => {
                 <Link to="/profile">
                   <button className="w-full">Profile</button>
                 </Link>
+                <Link to="/join-contractor">
+                  <button className="w-full">Join Contractor</button>
+                </Link>
+                <Link to="/my-list-house">
+                  <button className="w-full">My List House</button>
+                </Link>
                 <Link to="/history">
                   <button className="w-full">History</button>
                 </Link>

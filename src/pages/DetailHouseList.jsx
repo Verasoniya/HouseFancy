@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaChevronCircleLeft,
   FaChevronCircleRight,
@@ -271,7 +271,7 @@ const DetailHouseList = () => {
           </div>
           <div className="border-t border-dashed border-blue-400 w-full mt-16" />
           <p className="font-semibold text-2xl self-start">Bidder</p>
-          <div className="self-start w-2/3 mb-5">
+          <div className="self-start w-2/3">
             <BidderHouse id={id} user_id={userId} />
           </div>
         </div>

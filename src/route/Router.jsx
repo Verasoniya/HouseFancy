@@ -3,8 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import { TokenContext } from "../context/AuthContext";
-import HomePage from "../pages/HomePage";
+import HouseDetailSeller from "../pages/HouseDetailSeller";
+import MyListHouse from "../pages/MyListHouse";
+import EditHouse from "../pages/EditHouse";
 import Register from "../pages/Register";
+import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
 import HomeContracktor from "../pages/HomeContracktor";
 import DetailHouseList from "../pages/DetailHouseList";
@@ -12,6 +15,12 @@ import DetailPortfolioContractor from "../pages/DetailPortfolioContractor";
 import Profile from "../pages/Profile";
 import DetailContractorList from "../pages/DetailContractorList";
 import History from "../pages/History";
+
+import JoinContractor from "../pages/JoinContractor";
+import MyContractorProfile from "../pages/MyContractorProfile";
+import EditPortfolio from "../pages/EditPortfolio";
+import AddPortfolio from "../pages/AddPortfolio";
+import AddHouse from "../pages/AddHouse";
 
 axios.defaults.baseURL = "https://housefancy.site/";
 
@@ -32,8 +41,9 @@ const RoutesHouseFancy = () => {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/homepage" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
+
             <Route path="/register" element={<Register />} />
+
             <Route path="/homecontractor" element={<HomeContracktor />} />
             <Route path="/detail/:id/*" element={<DetailHouseList />} />
             <Route path="/profile" element={<Profile />} />
@@ -46,6 +56,33 @@ const RoutesHouseFancy = () => {
               path="/detailportfolio/:id"
               element={<DetailPortfolioContractor />}
             />
+
+            <Route path="/login" element={<Login />} />
+
+            <Route
+              path="/house-detail-seller/:house_id"
+              element={<HouseDetailSeller />}
+            />
+            <Route path="/edit-house/:house_id" element={<EditHouse />} />
+            <Route path="/my-list-house" element={<MyListHouse />} />
+            <Route path="/add-house" element={<AddHouse />} />
+
+            <Route
+              path="/edit-portfolio/:portfolio_id"
+              element={<EditPortfolio />}
+            />
+            <Route
+              path="/add-portfolio/:contractor_id"
+              element={<AddPortfolio />}
+            />
+
+            <Route
+              path="/my-contractor-profile/:contractor_id"
+              element={<MyContractorProfile />}
+            />
+            <Route path="/join-contractor" element={<JoinContractor />} />
+            <Route path="/detail-house" element={<DetailHouseList />} />
+
             <Route
               path="*"
               element={
