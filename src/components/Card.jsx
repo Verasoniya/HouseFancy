@@ -62,17 +62,15 @@ const CardHouse = (props) => {
 
 const CardContractor = (props) => {
   return (
-    <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <Link to={`/detailcontractor/${props.id}`}>
-        <img
-          src={
-            props.imageContractor
-              ? props.imageContractor
-              : "https://via.placeholder.com/400x200.jpg?text=No+Image"
-          }
-          alt={props.imageContractor}
-        />
-      </Link>
+    <div className="container flex flex-col justify-between bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
+      <img
+        src={
+          props.imageContractor
+            ? props.imageContractor
+            : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+        }
+        alt={props.imageContractor}
+      />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
           <p

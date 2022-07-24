@@ -70,7 +70,7 @@ function JoinContractor() {
           icon: "success",
           title: "Successfully to Join Contractor",
         });
-        navigate("/homepage");
+        navigate("/my-contractor-profile");
       })
       .catch((err) => {
         const { data } = err.response;

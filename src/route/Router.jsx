@@ -77,11 +77,11 @@ const RoutesHouseFancy = () => {
             />
 
             <Route
-              path="/my-contractor-profile/:contractor_id"
+              path="/my-contractor-profile"
               element={<MyContractorProfile />}
             />
             <Route path="/join-contractor" element={<JoinContractor />} />
-            <Route path="/detail-house" element={<DetailHouseList />} />
+            {/* <Route path="/detail-house" element={<DetailHouseList />} /> */}
 
             <Route
               path="*"
