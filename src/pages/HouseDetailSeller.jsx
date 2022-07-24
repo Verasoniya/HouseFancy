@@ -5,44 +5,29 @@ import { FaEnvelope, FaPhone, FaUserAlt, FaChevronCircleLeft, FaChevronCircleRig
 import swal from "sweetalert";
 import Layout from "../components/Layout";
 import { Bidder, Owner } from "../components/Bidder";
+import CustomButton from "../components/CustomButton";
 import { TrTd, TrTdDescription } from "../components/TrTd";
 
 import { withRouter } from "../context/navigations";
 
 import "../../src/mycss.css";
 import logo from "../assets/logoblue.png";
+import { useNavigate } from "react-router-dom";
 import { apiRequest } from "../context/apiRequest";
 import { TokenContext } from "../context/AuthContext";
-import CustomButton from "../components/CustomButton";
 
 function HouseDetailSeller(props) {
   const { setToken } = useContext(TokenContext);
+  const navigate = useNavigate();
+  const { house_id } = props.params;
   const [loading, setLoading] = useState(true);
   const [house, setHouse] = useState([]);
   const [bidder, setBidder] = useState([]);
   const [offset, setOffset] = useState(13);
   const [current, setCurrent] = useState(0);
-
-  const SliderData = [
-    {
-      image: "https://images.unsplash.com/photo-1546768292-fb12f6c92568?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1501446529957-6226bd447c46?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1489&q=80",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1475189778702-5ec9941484ae?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
-    },
-  ];
-  const length = SliderData.length;
-
-  const { house_id } = props.params;
+  const [image_slider, setImageSlider] = useState([]);
+  // const [status, setStatus] = useState("");
+  const length = image_slider.length;
 
   useEffect(() => {
     fetchHouseDetail();
@@ -51,14 +36,23 @@ function HouseDetailSeller(props) {
   const fetchHouseDetail = () => {
     apiRequest(`/houses/${house_id}`, "GET", {})
       .then((res) => {
-        const { data } = res;
+        const { data } = res.data;
+        const image = [];
+        Object.keys(data.image_url).map((img) => image.push(data.image_url[img]));
         setHouse(data);
-        console.log(data);
+        setImageSlider(image);
+        console.log(image);
       })
       .catch((err) => {
+        const { data } = err.response;
+        if ([401, 403].includes(data.code)) {
+          localStorage.removeItem("token");
+          setToken("0");
+          navigate("/login");
+        }
         swal({
           icon: "error",
-          title: err,
+          title: data.message,
         });
       })
       .finally(() => fetchBidder());
@@ -67,14 +61,20 @@ function HouseDetailSeller(props) {
   const fetchBidder = () => {
     apiRequest(`/negotiations/${house_id}?limit=12&offset=0`, "GET", {})
       .then((res) => {
-        const { data } = res;
+        const { data } = res.data;
         setBidder(data);
         console.log(data);
       })
       .catch((err) => {
+        const { data } = err.response;
+        if ([401, 403].includes(data.code)) {
+          localStorage.removeItem("token");
+          setToken("0");
+          navigate("/login");
+        }
         swal({
           icon: "error",
-          title: err,
+          title: data.message,
         });
       })
       .finally(() => setLoading(false));
@@ -85,19 +85,25 @@ function HouseDetailSeller(props) {
     apiRequest(`/negotiations/${house_id}?limit=12&offset=${offset}`, "GET", {})
       .then((res) => {
         const { data } = res.data;
-        console.log(res.data);
+        console.log(res);
         const temp = bidder.slice();
         temp.push(...data);
         setBidder(temp);
         console.log(temp);
         setOffset(newOffset);
       })
-      .catch((err) =>
+      .catch((err) => {
+        const { data } = err.response;
+        if ([401, 403].includes(data.code)) {
+          localStorage.removeItem("token");
+          setToken("0");
+          navigate("/login");
+        }
         swal({
           icon: "error",
-          title: err,
-        })
-      );
+          title: data.message,
+        });
+      });
   };
 
   const nextSlide = () => {
@@ -108,7 +114,7 @@ function HouseDetailSeller(props) {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-  if (!Array.isArray(SliderData) || SliderData.length <= 0) {
+  if (!Array.isArray(image_slider) || image_slider.length <= 0) {
     return null;
   }
 
@@ -116,12 +122,61 @@ function HouseDetailSeller(props) {
     window.open(`https://wa.me/62${item}?text=Halo%20Saya%20pemilik%20rumah%20${house.title}.`, "_blank");
   };
 
-  const handleDeal = () => {
-    //
+  const handleDeal = (item) => {
+    const status = "owned";
+    const body = {
+      status,
+    };
+
+    apiRequest(`/negotiations/${item}`, "PUT", body)
+      .then((res) => {
+        console.log(status);
+        swal({
+          icon: "success",
+          title: "House Sold Out",
+        });
+      })
+      .catch((err) => {
+        const { data } = err.response;
+        if ([401, 403].includes(data.code)) {
+          localStorage.removeItem("token");
+          setToken("0");
+          navigate("/login");
+        }
+        swal({
+          icon: "error",
+          title: data.message,
+        });
+      })
+      .finally(() => fetchHouseDetail());
   };
 
-  const handleCancel = () => {
-    //
+  const handleCancel = (item) => {
+    const status = "cancel";
+    const body = {
+      status,
+    };
+
+    apiRequest(`/negotiations/${item}`, "PUT", body)
+      .then((res) => {
+        swal({
+          icon: "success",
+          title: "Bid Canceled",
+        });
+      })
+      .catch((err) => {
+        const { data } = err.response;
+        if ([401, 403].includes(data.code)) {
+          localStorage.removeItem("token");
+          setToken("0");
+          navigate("/login");
+        }
+        swal({
+          icon: "error",
+          title: data.message,
+        });
+      })
+      .finally(() => fetchHouseDetail());
   };
 
   if (loading) {
@@ -141,10 +196,13 @@ function HouseDetailSeller(props) {
             <div className="flex justify-between w-full">
               <FaChevronCircleLeft className="text-5xl cursor-pointer select-none text-blue-300 hover:text-blue-500 self-center" onClick={prevSlide} />
               <div>
-                {SliderData.map((slide, index) => {
+                {image_slider.map((slide, index) => {
+                  // {
+                  //   console.log(slide);
+                  // }
                   return (
                     <div className={index === current ? "slide active" : "slide"} key={index}>
-                      {index === current && <img src={slide.image} alt="house image" className="w-[800px] h-[200px] lg:h-[300px]" />}
+                      {index === current && <img src={slide.image_url} alt="House Image" className="w-auto h-[200px] lg:h-[300px]" />}
                     </div>
                   );
                 })}
@@ -156,7 +214,7 @@ function HouseDetailSeller(props) {
               <div className="flex flex-col w-full lg:w-1/2">
                 <TrTd title={"Location:"} content={house.location} />
                 <TrTd title={"Cost:"} content={house.price} />
-                <TrTd title={"Land Area:"} content={house.surface_area} />
+                <TrTd title={"Surface Area:"} content={house.surface_area} />
                 <TrTd title={"Building Area:"} content={house.building_area} />
                 <TrTd title={"Bedrooms:"} content={house.bedroom} />
                 <TrTd title={"Bathrooms:"} content={house.bathroom} />
@@ -176,15 +234,15 @@ function HouseDetailSeller(props) {
                       <FaEnvelope className="text-md self-center" /> <p className="font-thin text-md">{house.user.email}</p>
                     </div>
                     <div className="flex gap-2">
-                      <FaMapMarker className="text-md self-center" /> <p className="font-thin text-md">{house.user.lokasi}</p>
+                      <FaMapMarker className="text-md self-center" /> <p className="font-thin text-md">{house.user.address}</p>
                     </div>
                   </div>
                   <img src={house.user.image_url} alt={house.user.image_url} width={50} height={50} className="rounded-full self-center mr-2" />
                 </div>
                 <div className="w-full mt-8 z-0">
-                  <MapContainer center={[house.longitude, house.latitude]} zoom={13} scrollWheelZoom={false} style={{ height: "250px" }}>
+                  <MapContainer center={[house.latitude, house.longitude]} zoom={13} scrollWheelZoom={false} style={{ height: "250px" }}>
                     <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    <Marker position={[house.longitude, house.latitude]}>
+                    <Marker position={[house.latitude, house.longitude]}>
                       <Popup>{house.location}</Popup>
                     </Marker>
                   </MapContainer>
@@ -192,10 +250,11 @@ function HouseDetailSeller(props) {
               </div>
             </div>
             <div className="border-t border-dashed border-blue-400 w-full mt-16" />
-            {house.status === "Sold out" ? (
+            {house.status === "Sold Out" ? (
               <div className="self-start w-2/3 mb-10">
+                {console.log(bidder[0].user)}
                 <p className="font-semibold text-2xl mb-6">Owner</p>
-                <Owner />
+                <Owner imageProfile={bidder[0].user.image_url} fullname={bidder[0].user.full_name} bidNominal={bidder[0].nego} phone={bidder[0].user.phone_number} email={bidder[0].user.email} />
               </div>
             ) : (
               <div className="self-start w-2/3 mb-10">
@@ -207,8 +266,8 @@ function HouseDetailSeller(props) {
                     fullname={item.user.full_name}
                     bidNominal={item.nego}
                     onClickChat={() => handleChatBidder(item.user.phone_number.substring(1))}
-                    onClickDeal={() => handleDeal()}
-                    onClickCancel={() => handleCancel()}
+                    onClickDeal={() => handleDeal(item.id)}
+                    onClickCancel={() => handleCancel(item.id)}
                   />
                 ))}
                 <div className="w-20 mb-10">

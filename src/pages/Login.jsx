@@ -46,12 +46,19 @@ function Login() {
         });
         navigate("/my-list-house");
       })
-      .catch((err) =>
+      .catch((err) => {
+        console.log(err);
+        const { data } = err.response;
+        if ([401, 403].includes(data.code)) {
+          localStorage.removeItem("token");
+          setToken("0");
+          navigate("/login");
+        }
         swal({
           icon: "error",
-          title: err,
-        })
-      );
+          title: data.message,
+        });
+      });
   };
 
   if (token === "0" || token == null) {
@@ -71,7 +78,7 @@ function Login() {
             <Input id="input-email" type={"email"} placeholder={"Email"} onChange={(e) => setEmail(e.target.value)} />
             <Input id="input-password" type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} />
             <p />
-            <CustomButton id="btn-submit" label={"SUBMIT"} loading={loading || disabled} disabled={email.length === 0 || password.length === 0} />
+            <CustomButton id="btn-submit" label={"SUBMIT"} loading={loading || disabled} />
             <p className="font-medium text-xs">
               Don't have an account?
               <a href="/register" className="text-[#4285F4] ml-1">

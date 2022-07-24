@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-import CustomButton from "../components/CustomButton";
-import { apiRequest } from "../context/apiRequest";
-import Layout from "../components/Layout";
-import { Input } from "../components/Input";
-
 import { TokenContext } from "../context/AuthContext";
+import { apiRequest } from "../context/apiRequest";
+import CustomButton from "../components/CustomButton";
+import { Input } from "../components/Input";
+import Layout from "../components/Layout";
+
 import logo from "../assets/logoblue.png";
 
 function JoinContractor() {
@@ -15,7 +15,6 @@ function JoinContractor() {
   const { setToken } = useContext(TokenContext);
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [objSubmit, setObjSubmit] = useState("");
   const [contractor_name, setContractorName] = useState("");
   const [number_siujk, setNumberSIUJK] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
@@ -39,7 +38,7 @@ function JoinContractor() {
 
     const formData = new FormData();
     formData.append("contractor_name", contractor_name);
-    formData.append("certificate_SIUJK_URL", certificate_file);
+    formData.append("certificate_file", certificate_file);
     formData.append("phone_number", phone_number);
     formData.append("number_siujk", number_siujk);
     formData.append("description", description);
@@ -53,12 +52,18 @@ function JoinContractor() {
           icon: "success",
           title: "Successfully to Join Contractor",
         });
-        navigate("/my-contractor-profile");
+        navigate("/homepage");
       })
       .catch((err) => {
+        const { data } = err.response;
+        if ([401, 403].includes(data.code)) {
+          localStorage.removeItem("token");
+          setToken("0");
+          navigate("/login");
+        }
         swal({
           icon: "error",
-          title: err,
+          title: data.message,
         });
       })
       .finally(() => setLoading(false));
@@ -77,32 +82,35 @@ function JoinContractor() {
       <Layout>
         <div className="flex flex-col items-center my-10">
           <p className="font-bold text-xl mb-10">Validation</p>
-          <form className="flex flex-col w-2/5 gap-4" onSubmit={(e) => handleSubmit(e)}>
+          <form className="flex flex-col w-full lg:w-2/5 px-4 lg:px-0 gap-4" onSubmit={(e) => handleSubmit(e)}>
             <Input
               type={"file"}
               id={"input-photo-profile"}
               placeholder={"Company Photo Profile"}
+              required
               onChange={(e) => {
                 setImageProfile(e.target.files[0]);
               }}
             />
-            <Input type={"text"} id={"input-company-name"} placeholder={"Company Name"} onChange={(e) => setContractorName(e.target.value)} />
-            <Input type={"text"} id={"input-siujk-number"} placeholder={"SIUJK Number"} onChange={(e) => setNumberSIUJK(e.target.value)} />
+            <Input type={"text"} id={"input-company-name"} placeholder={"Company Name"} required onChange={(e) => setContractorName(e.target.value)} />
+            <Input type={"text"} id={"input-siujk-number"} placeholder={"SIUJK Number"} required onChange={(e) => setNumberSIUJK(e.target.value)} />
             <Input
               type={"file"}
               id={"input-siujk-file"}
               placeholder={"Upload SIUJK File"}
+              required
               onChange={(e) => {
                 setCertificateFile(e.target.files[0]);
               }}
             />
-            <Input type={"text"} id={"input-company-phone"} placeholder={"Company Phone Number"} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <Input type={"email"} id={"input-company-email"} placeholder={"Company Email"} onChange={(e) => setEmail(e.target.value)} />
-            <Input type={"text"} id={"input-company-address"} placeholder={"Company Address"} onChange={(e) => setAddress(e.target.value)} />
+            <Input type={"text"} id={"input-company-phone"} placeholder={"Company Phone Number"} required onChange={(e) => setPhoneNumber(e.target.value)} />
+            <Input type={"email"} id={"input-company-email"} placeholder={"Company Email"} required onChange={(e) => setEmail(e.target.value)} />
+            <Input type={"text"} id={"input-company-address"} placeholder={"Company Address"} required onChange={(e) => setAddress(e.target.value)} />
             <textarea
               id={"input-company-details"}
               placeholder={"Company Details"}
               className="resize-y h-32 w-full bg-white placeholder-stone-600 text-neutral-900 font-normal border border-blue-400 focus:border focus:border-blue-400 focus:ring-0 rounded-sm p-2 pl-3 text-sm"
+              required
               onChange={(e) => setDescription(e.target.value)}
             />
             <CustomButton

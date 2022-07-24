@@ -7,7 +7,7 @@ import { FaHome } from "react-icons/fa";
 const CardHouse = (props) => {
   return (
     <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <img src={props.imageHouse ? props.imageHouse : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageHouse} />
+      <img src={Object.keys(props.imageHouse).length !== 0 ? props.imageHouse["1"].image_url : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imageHouse} />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col mb-3 mx-2 lg:w-full">
           <p className="font-semibold text-sm mt-4 cursor-pointer" onClick={props.onClickDetailHouse}>
@@ -29,7 +29,7 @@ const CardHouse = (props) => {
             <div className="flex">
               <FaHome className="text-xs self-center" />
               <p className="font-normal text-xs ml-1">
-                Land Area: {props.landArea} m<sup>2</sup>
+                Surface Area: {props.surfaceArea} m<sup>2</sup>
               </p>
             </div>
             <div className="flex">
@@ -75,7 +75,7 @@ const CardContractor = (props) => {
 const CardPortfolio = (props) => {
   return (
     <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
-      <img src={props.imagePortfolio ? props.imagePortfolio : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imagePortfolio} />
+      <img src={Object.keys(props.imagePortfolio).length !== 0 ? props.imagePortfolio["1"].image_url : "https://via.placeholder.com/400x200.jpg?text=No+Image"} alt={props.imagePortfolio} />
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col lg:flex-row justify-between mb-3 mx-2 mt-4 lg:w-full ">
           <div className="flex flex-col">
