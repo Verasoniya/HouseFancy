@@ -44,7 +44,7 @@ function Login() {
           icon: "success",
           title: "Login Successfully",
         });
-        navigate("/my-list-house");
+        navigate("/homepage");
       })
       .catch((err) => {
         console.log(err);
@@ -90,7 +90,7 @@ function Login() {
       </div>
     );
   } else {
-    return <Navigate to="/my-list-house" />;
+    return <Navigate to="/homepage" />;
   }
 }
 

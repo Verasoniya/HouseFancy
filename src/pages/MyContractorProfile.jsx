@@ -14,7 +14,7 @@ import { withRouter } from "../context/navigations";
 import { apiRequest } from "../context/apiRequest";
 import logo from "../assets/logoblue.png";
 
-function MyContractorProfile(props) {
+function MyContractorProfile() {
   const navigate = useNavigate();
   const { setToken } = useContext(TokenContext);
   const [loading, setLoading] = useState(true);
@@ -30,15 +30,12 @@ function MyContractorProfile(props) {
   const [portfolio, setPortfolio] = useState([]);
   const [offset, setOffset] = useState(13);
 
-  const { contractor_id } = props.params;
-  console.log(contractor_id);
-
   useEffect(() => {
     fetchContractorDetail();
   }, []);
 
   const fetchContractorDetail = () => {
-    apiRequest(`/contractors/${contractor_id}`, "GET", {})
+    apiRequest(`contractors/mycontractor`, "GET", {})
       // apiRequest(`/contractors/2`, "GET", {})
       .then((res) => {
         const { id, contractor_name, address, description, email, image_url, number_siujk, phone_number, certificate_siujk_url } = res.data;
@@ -53,6 +50,7 @@ function MyContractorProfile(props) {
         setCertificateFile(certificate_siujk_url);
 
         console.log(res);
+        fetchMyPortfolio(id);
       })
       .catch((err) => {
         const { data } = err.response;
@@ -66,11 +64,11 @@ function MyContractorProfile(props) {
           title: data.message,
         });
       })
-      .finally(() => fetchMyPortfolio());
+      .finally(() => setLoading(false));
   };
 
-  const fetchMyPortfolio = async () => {
-    apiRequest(`/portfolios/contractors/${contractor_id}?limit=12&offset=0`, "GET", {})
+  const fetchMyPortfolio = async (id) => {
+    apiRequest(`/portfolios/contractors/${id}?limit=12&offset=0`, "GET", {})
       // apiRequest("/portfolios/contractors/1?limit=12&offset=0", "GET", {})
       .then((res) => {
         const { data } = res.data;
@@ -95,7 +93,7 @@ function MyContractorProfile(props) {
 
   const fetchMoreListPortfolio = async () => {
     const newOffset = offset + 12;
-    apiRequest(`/portfolios/contractors/${contractor_id}?limit=12&offset=${offset}`, "GET", {})
+    apiRequest(`/portfolios/contractors/${id_contractor}?limit=12&offset=${offset}`, "GET", {})
       // apiRequest(`/portfolios/contractors/1?limit=12&offset=${offset}`, "GET", {})
       .then((res) => {
         const { data } = res.data;
@@ -133,7 +131,7 @@ function MyContractorProfile(props) {
     formData.append("address", address);
     formData.append("email", email);
 
-    apiRequest(`/contractors/${contractor_id}`, "PUT", formData, "multipart/form-data")
+    apiRequest(`/contractors/${id_contractor}`, "PUT", formData, "multipart/form-data")
       .then(async (res) => {
         await swal({
           icon: "success",
@@ -366,4 +364,4 @@ function MyContractorProfile(props) {
   }
 }
 
-export default withRouter(MyContractorProfile);
+export default MyContractorProfile;
