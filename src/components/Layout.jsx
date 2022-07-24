@@ -1,4 +1,5 @@
 import React from "react";
+// import { Footer } from "./Footer";
 import Header from "./Header";
 
 function Layout(props) {
@@ -6,6 +7,7 @@ function Layout(props) {
     <div className="w-full h-screen flex flex-col overflow-auto bg-white">
       <Header />
       <div className="h-full w-full">{props.children}</div>
+      {/* <Footer /> */}
     </div>
   );
 }
