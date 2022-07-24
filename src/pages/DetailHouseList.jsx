@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FaChevronCircleLeft,
   FaChevronCircleRight,
@@ -7,6 +7,7 @@ import {
   FaWhatsapp,
   FaEnvelope,
   FaUserAlt,
+  FaWindows,
 } from "react-icons/fa";
 
 import { BidderHouse } from "../components/Bidder";
@@ -18,6 +19,10 @@ import logoblue from "../assets/logoblue.png";
 import { useParams } from "react-router-dom";
 import { apiRequest } from "../context/apiRequest";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+// import { TokenContext } from "../context/AuthContext";
+import swal from "sweetalert";
+import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 const defaultData = {
   title: "",
@@ -36,36 +41,75 @@ const defaultData = {
 
 const DetailHouseList = () => {
   const [house, setHouse] = useState(defaultData);
+  const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
+  const [bidder, setBidder] = useState(0);
+  const [userId, setUserId] = useState();
+  // const [disabled, setDisabled] = useState(true);
   const { id } = useParams();
+  const [token, setToken] = useState("");
 
   const fetchDetail = () => {
     apiRequest(`houses/${id}`, `GET`, {}).then((res) => {
-      const data = res.data;
+      const { data } = res.data;
+      console.log(data);
       const image = [];
       Object.keys(data.image_url).map((img) => image.push(data.image_url[img]));
-      setHouse((current) => {
-        return {
-          title: data.title,
-          price: data.price,
-          location: data.location,
-          longitude: data.longitude,
-          latitude: data.latitude,
-          surface_area: data.surface_area,
-          building_area: data.building_area,
-          bathroom: data.bathroom,
-          bedroom: data.bedroom,
-          certificate: data.certificate,
-          description: data.description,
-          image_url: image,
-        };
-      });
+      const temp = {
+        title: data.title,
+        price: data.price,
+        location: data.location,
+        longitude: data.longitude,
+        latitude: data.latitude,
+        surface_area: data.surface_area,
+        building_area: data.building_area,
+        bathroom: data.bathroom,
+        bedroom: data.bedroom,
+        certificate: data.certificate,
+        description: data.description,
+        image_url: image,
+      };
+      setHouse(temp);
     });
   };
 
+  const handleSubmite = async (e) => {
+    e.preventDefault();
+    const body = {
+      id_house: id,
+      nego: Number(bidder),
+      status: "negotiation",
+    };
+    console.log(body);
+    axios
+      .post(`https://housefancy.site/negotiations/${id}`, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        swal({
+          icon: "success",
+          title: "Successfully to Add Bid",
+          buttons: false,
+        });
+        window.location.reload(true);
+      })
+      .catch((err) => {
+        swal({
+          icon: "error",
+          title: err.response.data.message,
+        });
+        console.log(err);
+      })
+      .finally(() => fetchDetail());
+  };
+
   useEffect(() => {
+    setToken(localStorage.getItem("token"));
     fetchDetail();
-    console.log(house.latitude);
+    const decoded = jwtDecode(localStorage.getItem("token"));
+    setUserId(decoded.userId);
   }, []);
 
   const SliderData = [
@@ -104,9 +148,9 @@ const DetailHouseList = () => {
     return null;
   }
 
-  const position = [house.longitude, house.latitude];
+  // const position = [house.longitude, house.latitude];
 
-  console.log(position);
+  // console.log(position);
   return (
     <Layout>
       <div className="flex justify-center w-full mt-10">
@@ -140,9 +184,7 @@ const DetailHouseList = () => {
               onClick={nextSlide}
             />
           </div>
-          <p className="font-bold text-lg self-start">
-            {"Elegant house with strategic location"}
-          </p>
+          <p className="font-bold text-lg self-start">{house.title}</p>
           <div className="flex flex-col lg:flex-row justify-between w-full">
             <div className="flex flex-col w-full lg:w-1/2">
               <TrTd title={"Location:"} content={house.location} />
@@ -162,7 +204,7 @@ const DetailHouseList = () => {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-2">
                     <FaUserAlt className="text-md self-center" />{" "}
-                    <p className="font-thin text-md">Fullname</p>
+                    <p className="font-thin text-md">Andaru Akbar</p>
                   </div>
                   <div className="flex gap-2">
                     <FaPhone className="text-md self-center" />{" "}
@@ -174,7 +216,7 @@ const DetailHouseList = () => {
                   </div>
                   <div className="flex gap-2">
                     <FaMapMarker className="text-md self-center" />{" "}
-                    <p className="font-thin text-md">Location</p>
+                    <p className="font-thin text-md">Sentul, Bogor</p>
                   </div>
                 </div>
                 <img
@@ -187,7 +229,7 @@ const DetailHouseList = () => {
               </div>
               <div className="w-full mt-8 z-0">
                 <MapContainer
-                  center={position}
+                  center={[house.longitude, house.latitude]}
                   zoom={13}
                   scrollWheelZoom={false}
                   style={{ height: "250px" }}
@@ -196,7 +238,7 @@ const DetailHouseList = () => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <Marker position={position}>
+                  <Marker position={[house.longitude, house.latitude]}>
                     <Popup>{house.location}</Popup>
                   </Marker>
                 </MapContainer>
@@ -206,6 +248,7 @@ const DetailHouseList = () => {
                   id={"input-bidder"}
                   type={"text"}
                   placeholder={"Add Bid Amount"}
+                  onChange={(e) => setBidder(e.target.value)}
                 />
               </div>
               <div className="mt-3">
@@ -213,6 +256,7 @@ const DetailHouseList = () => {
                   id={"button-bidder"}
                   label={"BID NOW"}
                   color={"blue"}
+                  onClick={(e) => handleSubmite(e)}
                 />
               </div>
               <div className="mt-5">
@@ -227,8 +271,8 @@ const DetailHouseList = () => {
           </div>
           <div className="border-t border-dashed border-blue-400 w-full mt-16" />
           <p className="font-semibold text-2xl self-start">Bidder</p>
-          <div className="self-start w-2/3">
-            <BidderHouse />
+          <div className="self-start w-2/3 mb-5">
+            <BidderHouse id={id} user_id={userId} />
           </div>
         </div>
       </div>

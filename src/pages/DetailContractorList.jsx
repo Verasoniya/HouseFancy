@@ -52,17 +52,17 @@ const DetailContractorList = () => {
   }, []);
   return (
     <Layout>
-      <div className="flex flex-col w-full p-20">
-        <p className="text-center font-bold text-2xl">
+      <div className="flex flex-wrap p-20">
+        <p className="w-full text-center font-bold text-2xl mb-10">
           {contractor.contractor_name}
         </p>
-        <div className="w-full mt-5 ">
-          <div className="">
-            <img
-              src={contractor.image_url}
-              alt="img-profile"
-              className="rounded-xl mb-3"
-            />
+        <div className="w-full lg:w-1/2">
+          <img
+            src={contractor.image_url}
+            alt="img-profile"
+            className="rounded-xl mb-3"
+          />
+          <div className="px-2.5 py-2 shadow-sm shadow-slate-700">
             <div className="flex gap-2">
               <FaPhone className="text-md self-center" />
               <p className="font-thin text-md">{contractor.phone_number}</p>
@@ -75,17 +75,17 @@ const DetailContractorList = () => {
               <FaMapMarker className="text-md self-center" />
               <p className="font-thin text-md">{contractor.address}</p>
             </div>
-            <div className="mt-5">
-              <CustomButton
-                id={"button-whatsapp"}
-                icon={<FaWhatsapp className="text-2xl mr-2" />}
-                label={"WHATSAPP"}
-                color={"green"}
-              />
-            </div>
+            <div className="mt-5"></div>
+            <CustomButton
+              id={"button-whatsapp"}
+              icon={<FaWhatsapp className="text-2xl mr-2" />}
+              label={"WHATSAPP"}
+              color={"green"}
+            />
           </div>
         </div>
-        <div className="mt-5">
+
+        <div className="w-full mt-5 lg:w-1/2 lg:px-2 lg:self-start">
           <div className="flex justify-between mb-3">
             <p className="font-bold">SIUJK Number</p>
             <p>{contractor.number_siujk}</p>

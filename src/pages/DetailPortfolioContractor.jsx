@@ -1,13 +1,61 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 // import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import { TrTd, TrTdDescription } from "../components/TrTd";
 
+const defaultData = {
+  client_name: "",
+  location: "",
+  finish_date: "",
+  longitude: 0,
+  latitude: 0,
+  price: 0,
+  description: "",
+  img_url: [],
+};
+
 const DetailPortfolioContractor = () => {
   const [current, setCurrent] = useState(0);
+  const [portfolio, setPortfolio] = useState(defaultData);
+  const { id } = useParams();
+  const [token, setToken] = useState("");
+
+  const fetchDetail = async () => {
+    axios
+      .get(`https://housefancy.site/portfolios/details/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        const { data } = res.data.data;
+        console.log(data);
+        const image = [];
+        Object.keys(data.image_url).map((img) =>
+          image.push(data.image_url[img])
+        );
+        const temp = {
+          client_name: data.client_name,
+          location: data.location,
+          longitude: data.longitude,
+          latitude: data.latitude,
+          price: data.price,
+          finish_date: data.finish_date,
+          description: data.description,
+          image_url: image,
+        };
+        setPortfolio(temp);
+      });
+  };
+
+  useEffect(() => {
+    fetchDetail();
+  }, []);
 
   const SliderData = [
     {
@@ -85,17 +133,17 @@ const DetailPortfolioContractor = () => {
           </p>
           <div className="flex flex-col lg:flex-row justify-between w-full">
             <div className="flex flex-col w-full lg:w-1/2">
-              <TrTd title={"Client:"} content={"John Due"} />
-              <TrTd title={"Completed:"} content={"8 January 2021"} />
-              <TrTd title={"Location:"} content={"Jawa Tengah"} />
-              <TrTd title={"Cost:"} content={"2.000.000.000"} />
+              <TrTd title={"Client:"} content={portfolio.client_name} />
+              <TrTd title={"Completed:"} content={portfolio.finish_date} />
+              <TrTd title={"Location:"} content={portfolio.location} />
+              <TrTd title={"Cost:"} content={portfolio.price} />
               <TrTdDescription
                 title={"Description:"}
-                content={"lorem ipsun diuyayacuyguwfwgeyfugwfgyw"}
+                content={portfolio.description}
               />
             </div>
             <div className="flex flex-col w-full lg:w-2/5 mt-8 lg:mt-0">
-              <div className="w-full z-0">map</div>
+              {/* <div className="w-full z-0">map</div> */}
               {/* <div className="w-full mt-8 z-0">
               <MapContainer center={[house.longitude, house.latitude]} zoom={13} scrollWheelZoom={false} style={{ height: "250px" }}>
                 <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

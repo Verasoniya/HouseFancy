@@ -77,7 +77,7 @@ const HomePage = () => {
                     <button className="dropbtn p-1 rounded-t-md">
                       Location
                     </button>
-                    <div class="dropdown-content w-full rounded-b-md">
+                    <div className="dropdown-content w-full rounded-b-md">
                       <button className="w-full">Surabaya</button>
                       <button className="w-full">Jakarta</button>
                       <button className="w-full">Yogyakarta</button>
@@ -87,7 +87,7 @@ const HomePage = () => {
                     <button className="dropbtn p-1 rounded-t-md">
                       Minimum
                     </button>
-                    <div class="dropdown-content w-full rounded-b-md">
+                    <div className="dropdown-content w-full rounded-b-md">
                       <button className="w-full">0</button>
                       <button className="w-full">300.000.000</button>
                       <button className="w-full">500.000.000</button>
@@ -97,7 +97,7 @@ const HomePage = () => {
                     <button className="dropbtn p-1 rounded-t-md">
                       Maximum
                     </button>
-                    <div class="dropdown-content w-full rounded-b-md">
+                    <div className="dropdown-content w-full rounded-b-md">
                       <button className="w-full">300.000.000</button>
                       <button className="w-full">500.000.000</button>
                       <button className="w-full">~</button>

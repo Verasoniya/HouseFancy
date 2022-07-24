@@ -6,12 +6,13 @@ import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CardHouse = (props) => {
+  console.log(props.imageHouse);
   return (
     <div className="container flex flex-col bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
       <Link to={`/detail/${props.id}`}>
         <img
           src={
-            props.imageHouse
+            Object.keys(props.imageHouse).length !== 0
               ? props.imageHouse["1"].image_url
               : "https://via.placeholder.com/400x200.jpg?text=No+Image"
           }
