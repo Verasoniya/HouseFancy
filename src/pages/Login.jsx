@@ -70,15 +70,35 @@ function Login() {
               <img src={logo} alt="House Fancy" width={100} />
               <p className="font-bold text-xl text-[#F6F6F6]">House</p>
               <p className="font-bold text-xl text-[#F6F6F6]">Fancy</p>
-              <p className="text-2xl text-[#F6F6F6] font-dancing-script">make your dream house</p>
+              <p className="text-2xl text-[#F6F6F6] font-dancing-script">
+                make your dream house
+              </p>
             </div>
           </div>
-          <form className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-12 lg:py-24 gap-2" onSubmit={(e) => handleSubmit(e)}>
+          <form
+            className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-12 lg:py-24 gap-2"
+            onSubmit={(e) => handleSubmit(e)}
+          >
             <p className="font-bold text-xl mb-2 self-start">Login</p>
-            <Input id="input-email" type={"email"} placeholder={"Email"} onChange={(e) => setEmail(e.target.value)} />
-            <Input id="input-password" type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} />
+            <Input
+              id="input-email"
+              type={"email"}
+              placeholder={"Email"}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              id="input-password"
+              type={"password"}
+              placeholder={"Password"}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <p />
-            <CustomButton id="btn-submit" label={"SUBMIT"} loading={loading || disabled} />
+            <CustomButton
+              id="btn-submit"
+              label={"SUBMIT"}
+              loading={loading || disabled}
+              disabled={email.length === 0 || password.length === 0}
+            />
             <p className="font-medium text-xs">
               Don't have an account?
               <a href="/register" className="text-[#4285F4] ml-1">

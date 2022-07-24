@@ -14,4 +14,25 @@ const apiRequest = async (url, method, body, content_type) => {
   return response.data;
 };
 
-export { apiRequest };
+const apiRequestWithHeaders = async (
+  url,
+  method,
+  body,
+  content_type,
+  headers
+) => {
+  var config = {
+    method,
+    url,
+    headers: {
+      ...headers,
+      "Content-Type": content_type ? content_type : "application/json",
+    },
+    data: body,
+  };
+
+  const response = await axios(config);
+  return response.data;
+};
+
+export { apiRequest, apiRequestWithHeaders };

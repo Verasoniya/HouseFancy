@@ -66,18 +66,59 @@ function Register() {
             <img src={logo} alt="House Fancy" width={100} />
             <p className="font-bold text-xl text-[#F6F6F6]">House</p>
             <p className="font-bold text-xl text-[#F6F6F6]">Fancy</p>
-            <p className="text-2xl text-[#F6F6F6] font-dancing-script">make your dream house</p>
+            <p className="text-2xl text-[#F6F6F6] font-dancing-script">
+              make your dream house
+            </p>
           </div>
         </div>
-        <form className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-12 gap-2" onSubmit={(e) => handleSubmit(e)}>
-          <p className="font-bold text-xl mb-2 self-start">Create Your Account</p>
-          <Input id="input-full-name" type={"text"} placeholder={"Fullname"} required onChange={(e) => setFullname(e.target.value)} />
-          <Input id="input-phone-number" type={"text"} placeholder={"Phone Number"} required onChange={(e) => setPhoneNumber(e.target.value)} />
-          <Input id="input-address" type={"text"} placeholder={"Address"} required onChange={(e) => setAddress(e.target.value)} />
-          <Input id="input-email" type={"email"} placeholder={"Email"} required onChange={(e) => setEmail(e.target.value)} />
-          <Input id="input-password" type={"password"} placeholder={"Password"} required onChange={(e) => setPassword(e.target.value)} />
+        <form
+          className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-12 gap-2"
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          <p className="font-bold text-xl mb-2 self-start">
+            Create Your Account
+          </p>
+          <Input
+            id="input-full-name"
+            type={"text"}
+            placeholder={"Fullname"}
+            required
+            onChange={(e) => setFullname(e.target.value)}
+          />
+          <Input
+            id="input-phone-number"
+            type={"text"}
+            placeholder={"Phone Number"}
+            required
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+          <Input
+            id="input-address"
+            type={"text"}
+            placeholder={"Address"}
+            required
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <Input
+            id="input-email"
+            type={"email"}
+            placeholder={"Email"}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            id="input-password"
+            type={"password"}
+            placeholder={"Password"}
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <p />
-          <CustomButton id="btn-submit" label={"SUBMIT"} loading={loading || disabled} />
+          <CustomButton
+            id="btn-submit"
+            label={"SUBMIT"}
+            loading={loading || disabled}
+          />
           <p className="font-medium text-xs">
             Have an account?
             <a href="/login" className="text-[#4285F4] ml-1">

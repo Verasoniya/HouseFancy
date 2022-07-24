@@ -25,12 +25,30 @@ function JoinContractor() {
   const [certificate_file, setCertificateFile] = useState("");
 
   useEffect(() => {
-    if (image_file && contractor_name && number_siujk && certificate_file && phone_number && email && address && description) {
+    if (
+      image_file &&
+      contractor_name &&
+      number_siujk &&
+      certificate_file &&
+      phone_number &&
+      email &&
+      address &&
+      description
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [contractor_name, certificate_file, phone_number, number_siujk, description, image_file, address, email]);
+  }, [
+    contractor_name,
+    certificate_file,
+    phone_number,
+    number_siujk,
+    description,
+    image_file,
+    address,
+    email,
+  ]);
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -52,7 +70,7 @@ function JoinContractor() {
           icon: "success",
           title: "Successfully to Join Contractor",
         });
-        navigate("/homepage");
+        navigate("/my-contractor-profile");
       })
       .catch((err) => {
         const { data } = err.response;
@@ -73,7 +91,13 @@ function JoinContractor() {
     return (
       <div className="flex justify-center content-center">
         <div className="flex flex-col h-screen justify-center ">
-          <img src={logo} alt="Loading" width={200} height={200} className="animate-pulse" />
+          <img
+            src={logo}
+            alt="Loading"
+            width={200}
+            height={200}
+            className="animate-pulse"
+          />
         </div>
       </div>
     );
@@ -82,7 +106,10 @@ function JoinContractor() {
       <Layout>
         <div className="flex flex-col items-center my-10">
           <p className="font-bold text-xl mb-10">Validation</p>
-          <form className="flex flex-col w-full lg:w-2/5 px-4 lg:px-0 gap-4" onSubmit={(e) => handleSubmit(e)}>
+          <form
+            className="flex flex-col w-full lg:w-2/5 px-4 lg:px-0 gap-4"
+            onSubmit={(e) => handleSubmit(e)}
+          >
             <Input
               type={"file"}
               id={"input-photo-profile"}
@@ -92,8 +119,20 @@ function JoinContractor() {
                 setImageProfile(e.target.files[0]);
               }}
             />
-            <Input type={"text"} id={"input-company-name"} placeholder={"Company Name"} required onChange={(e) => setContractorName(e.target.value)} />
-            <Input type={"text"} id={"input-siujk-number"} placeholder={"SIUJK Number"} required onChange={(e) => setNumberSIUJK(e.target.value)} />
+            <Input
+              type={"text"}
+              id={"input-company-name"}
+              placeholder={"Company Name"}
+              required
+              onChange={(e) => setContractorName(e.target.value)}
+            />
+            <Input
+              type={"text"}
+              id={"input-siujk-number"}
+              placeholder={"SIUJK Number"}
+              required
+              onChange={(e) => setNumberSIUJK(e.target.value)}
+            />
             <Input
               type={"file"}
               id={"input-siujk-file"}
@@ -103,9 +142,27 @@ function JoinContractor() {
                 setCertificateFile(e.target.files[0]);
               }}
             />
-            <Input type={"text"} id={"input-company-phone"} placeholder={"Company Phone Number"} required onChange={(e) => setPhoneNumber(e.target.value)} />
-            <Input type={"email"} id={"input-company-email"} placeholder={"Company Email"} required onChange={(e) => setEmail(e.target.value)} />
-            <Input type={"text"} id={"input-company-address"} placeholder={"Company Address"} required onChange={(e) => setAddress(e.target.value)} />
+            <Input
+              type={"text"}
+              id={"input-company-phone"}
+              placeholder={"Company Phone Number"}
+              required
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <Input
+              type={"email"}
+              id={"input-company-email"}
+              placeholder={"Company Email"}
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type={"text"}
+              id={"input-company-address"}
+              placeholder={"Company Address"}
+              required
+              onChange={(e) => setAddress(e.target.value)}
+            />
             <textarea
               id={"input-company-details"}
               placeholder={"Company Details"}
@@ -117,7 +174,14 @@ function JoinContractor() {
               label={"Validation"}
               loading={loading || disabled}
               disabled={
-                email.length === 0 || contractor_name.length === 0 || certificate_file.length === 0 || phone_number.length === 0 || number_siujk.length === 0 || description.length === 0 || image_file.length === 0 || address.length === 0
+                email.length === 0 ||
+                contractor_name.length === 0 ||
+                certificate_file.length === 0 ||
+                phone_number.length === 0 ||
+                number_siujk.length === 0 ||
+                description.length === 0 ||
+                image_file.length === 0 ||
+                address.length === 0
               }
             />
           </form>
