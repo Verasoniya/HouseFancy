@@ -38,7 +38,17 @@ function MyContractorProfile() {
     apiRequest(`contractors/mycontractor`, "GET", {})
       // apiRequest(`/contractors/2`, "GET", {})
       .then((res) => {
-        const { id, contractor_name, address, description, email, image_url, number_siujk, phone_number, certificate_siujk_url } = res.data;
+        const {
+          id,
+          contractor_name,
+          address,
+          description,
+          email,
+          image_url,
+          number_siujk,
+          phone_number,
+          certificate_siujk_url,
+        } = res.data;
         setContractorId(id);
         setContractorName(contractor_name);
         setAddress(address);
@@ -93,7 +103,11 @@ function MyContractorProfile() {
 
   const fetchMoreListPortfolio = async () => {
     const newOffset = offset + 12;
-    apiRequest(`/portfolios/contractors/${id_contractor}?limit=12&offset=${offset}`, "GET", {})
+    apiRequest(
+      `/portfolios/contractors/${id_contractor}?limit=12&offset=${offset}`,
+      "GET",
+      {}
+    )
       // apiRequest(`/portfolios/contractors/1?limit=12&offset=${offset}`, "GET", {})
       .then((res) => {
         const { data } = res.data;
@@ -131,7 +145,12 @@ function MyContractorProfile() {
     formData.append("address", address);
     formData.append("email", email);
 
-    apiRequest(`/contractors/${id_contractor}`, "PUT", formData, "multipart/form-data")
+    apiRequest(
+      `/contractors/${id_contractor}`,
+      "PUT",
+      formData,
+      "multipart/form-data"
+    )
       .then(async (res) => {
         await swal({
           icon: "success",
@@ -184,7 +203,9 @@ function MyContractorProfile() {
         const image = [];
         console.log("image", image);
         console.log("data", data);
-        Object.keys(data.image_url).map((img) => image.push(data.image_url[img]));
+        Object.keys(data.image_url).map((img) =>
+          image.push(data.image_url[img])
+        );
         handleDelImagePortfolio(item, image);
       })
       .catch((err) => {
@@ -267,7 +288,13 @@ function MyContractorProfile() {
     return (
       <div className="flex justify-center content-center">
         <div className="flex flex-col h-screen justify-center ">
-          <img src={logo} alt="Loading" width={200} height={200} className="animate-pulse" />
+          <img
+            src={logo}
+            alt="Loading"
+            width={200}
+            height={200}
+            className="animate-pulse"
+          />
         </div>
       </div>
     );
@@ -275,12 +302,20 @@ function MyContractorProfile() {
     return (
       <Layout>
         <div className="w-14 text-3xl absolute bottom-12 right-8 md:bottom-14 md:right-16">
-          <CustomButton label={<FaPlus className="text-sm" />} radius={"50%"} padding={20} onClick={() => navigate(`/add-portfolio/${id_contractor}`)} />
+          <CustomButton
+            label={<FaPlus className="text-sm" />}
+            radius={"50%"}
+            padding={20}
+            onClick={() => navigate(`/add-portfolio/${id_contractor}`)}
+          />
         </div>
         <div className="flex flex-col items-center my-10">
           <p className="font-bold text-xl mb-10">{contractor_name}</p>
           <div className="flex flex-col lg:flex-row justify-center lg:justify-around w-full lg:w-3/4">
-            <form className="flex flex-col w-full gap-1 lg:w-2/5 px-4 lg:px-0 mb-6 lg:mb-0" onSubmit={(e) => handleSubmit(e)}>
+            <form
+              className="flex flex-col w-full gap-1 lg:w-2/5 px-4 lg:px-0 mb-6 lg:mb-0"
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <Label label={"Company Photo Profile"} />
               <Input
                 type={"file"}
@@ -292,10 +327,22 @@ function MyContractorProfile() {
               />
 
               <Label label={"Company Name"} />
-              <Input type={"text"} id={"input-company-name"} placeholder={"Company Name"} value={contractor_name} onChange={(e) => setContractorName(e.target.value)} />
+              <Input
+                type={"text"}
+                id={"input-company-name"}
+                placeholder={"Company Name"}
+                value={contractor_name}
+                onChange={(e) => setContractorName(e.target.value)}
+              />
 
               <Label label={"SIUJK Number"} />
-              <Input type={"text"} id={"input-siujk-number"} placeholder={"SIUJK Number"} value={number_siujk} onChange={(e) => setNumberSIUJK(e.target.value)} />
+              <Input
+                type={"text"}
+                id={"input-siujk-number"}
+                placeholder={"SIUJK Number"}
+                value={number_siujk}
+                onChange={(e) => setNumberSIUJK(e.target.value)}
+              />
 
               <Label label={"Upload Certificate SIUJK"} />
               <Input
@@ -308,13 +355,31 @@ function MyContractorProfile() {
               />
 
               <Label label={"Company Phone Number"} />
-              <Input type={"text"} id={"input-company-phone"} placeholder={"Company Phone Number"} value={phone_number} onChange={(e) => setPhoneNumber(e.target.value)} />
+              <Input
+                type={"text"}
+                id={"input-company-phone"}
+                placeholder={"Company Phone Number"}
+                value={phone_number}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
 
               <Label label={"Company Email"} />
-              <Input type={"email"} id={"input-company-email"} placeholder={"Company Email"} value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input
+                type={"email"}
+                id={"input-company-email"}
+                placeholder={"Company Email"}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
               <Label label={"Company Address"} />
-              <Input type={"text"} id={"input-company-address"} placeholder={"Company Address"} value={address} onChange={(e) => setAddress(e.target.value)} />
+              <Input
+                type={"text"}
+                id={"input-company-address"}
+                placeholder={"Company Address"}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
 
               <Label label={"Company Details"} />
               <textarea
@@ -327,10 +392,28 @@ function MyContractorProfile() {
               <CustomButton label={"UPDATE"} loading={loading} />
             </form>
             <div className="self-center">
-              <img src={image_file} alt={"Company Photo Profile"} width={300} className="rounded-xl border mb-8" />
+              <img
+                src={image_file}
+                alt={"Company Photo Profile"}
+                width={300}
+                className="rounded-xl border mb-8"
+              />
               <p className="font-semibold text-sm mb-3">Certificate</p>
-              <img src={certificate_file} alt={"Company SIUJK Certificate"} width={300} className="border mb-6" />
-              <CustomButton label={"DELETE ACCOUNT"} padding={6} color={"white"} textColor={"red"} borderWidth={2} border={"red"} onClick={() => handleDelContractor()} />
+              <img
+                src={certificate_file}
+                alt={"Company SIUJK Certificate"}
+                width={300}
+                className="border mb-6"
+              />
+              <CustomButton
+                label={"DELETE ACCOUNT"}
+                padding={6}
+                color={"white"}
+                textColor={"red"}
+                borderWidth={2}
+                border={"red"}
+                onClick={() => handleDelContractor()}
+              />
             </div>
           </div>
           <div className="w-5/6">
@@ -340,13 +423,37 @@ function MyContractorProfile() {
           <div className="flex items-center">
             <div className="grid grid-flow-row auto-rows-max w-full gap-6 my-8 mx-10 lg:mx-28 grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
               {portfolio.map((item) => (
-                <CardPortfolio key={item.id} imagePortfolio={item.image_url} nameClient={item.client_name} cost={item.price} onClickDetailPortfolio={() => navigate(`/portfolios-details/${item.id}`)}>
+                <CardPortfolio
+                  key={item.id}
+                  imagePortfolio={item.image_url}
+                  nameClient={item.client_name}
+                  cost={item.price}
+                  onClickDetailPortfolio={() =>
+                    navigate(`/portfolios-details/${item.id}`)
+                  }
+                >
                   <div className="flex gap-2">
                     <div className="w-8">
-                      <CustomButton label={<FaPencilAlt />} padding={6} color={"white"} textColor={"blue"} borderWidth={2} border={"blue"} onClick={() => navigate(`/edit-portfolio/${item.id}`)} />
+                      <CustomButton
+                        label={<FaPencilAlt />}
+                        padding={6}
+                        color={"white"}
+                        textColor={"blue"}
+                        borderWidth={2}
+                        border={"blue"}
+                        onClick={() => navigate(`/edit-portfolio/${item.id}`)}
+                      />
                     </div>
                     <div className="w-8">
-                      <CustomButton label={<FaTrash />} padding={6} color={"white"} textColor={"red"} borderWidth={2} border={"red"} onClick={() => handleDelSubmit(item.id)} />
+                      <CustomButton
+                        label={<FaTrash />}
+                        padding={6}
+                        color={"white"}
+                        textColor={"red"}
+                        borderWidth={2}
+                        border={"red"}
+                        onClick={() => handleDelSubmit(item.id)}
+                      />
                     </div>
                   </div>
                 </CardPortfolio>
@@ -355,7 +462,10 @@ function MyContractorProfile() {
           </div>
           <div className="flex justify-end w-5/6">
             <div className="w-20 mb-10">
-              <CustomButton label={"More"} onClick={() => fetchMoreListPortfolio()} />
+              <CustomButton
+                label={"More"}
+                onClick={() => fetchMoreListPortfolio()}
+              />
             </div>
           </div>
         </div>

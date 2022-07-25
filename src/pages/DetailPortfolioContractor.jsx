@@ -9,6 +9,8 @@ import { useParams } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import { TrTd, TrTdDescription } from "../components/TrTd";
+import "../../src/mycss.css"
+
 
 const defaultData = {
   client_name: "",
