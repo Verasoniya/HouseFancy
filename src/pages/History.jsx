@@ -36,7 +36,6 @@ const History = () => {
             icon: "error",
             title: err.response.data.message,
           });
-          console.log(err);
         });
     },
     [history]
@@ -51,14 +50,12 @@ const History = () => {
       })
       .then((res) => {
         setHistory(res.data.data.data);
-        console.log(res.data.data.data);
       })
       .catch((err) => {
         swal({
           icon: "error",
           title: err.response.data.message,
         });
-        console.log(err);
       })
       .finally(() => setLoading(false));
   }, [handleCancelNegotiations]);
@@ -74,9 +71,8 @@ const History = () => {
                 alt="Loading"
                 width={200}
                 height={200}
-                className="animate-pulse mx-auto"
+                className="animate-pulse"
               />
-              <h1 className="text-2xl font-bold text-center">Loading...</h1>
             </div>
           </div>
         ) : (
@@ -87,7 +83,6 @@ const History = () => {
                 id={his.id}
                 titleHouse={his.house.title}
                 imageHouse={his.house.image_url["1"]}
-                // cost={his.house.price}
                 cost={new Intl.NumberFormat("id-ID", {
                   style: "currency",
                   currency: "IDR",

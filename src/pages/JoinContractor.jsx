@@ -9,6 +9,7 @@ import { Input } from "../components/Input";
 import Layout from "../components/Layout";
 
 import logo from "../assets/logoblue.png";
+import { Label } from "../components/Label";
 
 function JoinContractor() {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ function JoinContractor() {
           icon: "success",
           title: "Successfully to Join Contractor",
         });
-        navigate("/my-contractor-profile");
+        navigate("/homepage");
       })
       .catch((err) => {
         const { data } = err.response;
@@ -105,11 +106,12 @@ function JoinContractor() {
     return (
       <Layout>
         <div className="flex flex-col items-center my-10">
-          <p className="font-bold text-xl mb-10">Validation</p>
+          <p className="font-bold text-xl mb-10">Join to Contractor</p>
           <form
-            className="flex flex-col w-full lg:w-2/5 px-4 lg:px-0 gap-4"
+            className="flex flex-col w-full lg:w-2/5 px-4 lg:px-0 gap-1"
             onSubmit={(e) => handleSubmit(e)}
           >
+            <Label label={"Upload Company Photo Profile"} />
             <Input
               type={"file"}
               id={"input-photo-profile"}
@@ -119,59 +121,77 @@ function JoinContractor() {
                 setImageProfile(e.target.files[0]);
               }}
             />
+
+            <Label label={"Company Name"} />
             <Input
               type={"text"}
               id={"input-company-name"}
-              placeholder={"Company Name"}
+              placeholder={"Stone Construction"}
               required
               onChange={(e) => setContractorName(e.target.value)}
             />
+
+            <Label label={"SIUJK Number"} />
             <Input
               type={"text"}
               id={"input-siujk-number"}
-              placeholder={"SIUJK Number"}
+              placeholder={"0-3171-07-002-1-09-002587"}
               required
               onChange={(e) => setNumberSIUJK(e.target.value)}
             />
+
+            <Label label={"Upload SIUJK Certificate"} />
             <Input
               type={"file"}
               id={"input-siujk-file"}
-              placeholder={"Upload SIUJK File"}
+              placeholder={"Upload SIUJK Certificate"}
               required
               onChange={(e) => {
                 setCertificateFile(e.target.files[0]);
               }}
             />
+
+            <Label label={"Company Phone Number"} />
             <Input
               type={"text"}
               id={"input-company-phone"}
-              placeholder={"Company Phone Number"}
+              placeholder={"083124423671"}
               required
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
+
+            <Label label={"Company Email"} />
             <Input
               type={"email"}
               id={"input-company-email"}
-              placeholder={"Company Email"}
+              placeholder={"info@stoneconstruction.com"}
               required
               onChange={(e) => setEmail(e.target.value)}
             />
+
+            <Label label={"Company Address"} />
             <Input
               type={"text"}
               id={"input-company-address"}
-              placeholder={"Company Address"}
+              placeholder={
+                "Jl. Pucang Argo Tengah Raya, Batursari, Kec. Mranggen, Kab. Demak, Jawa Tengah"
+              }
               required
               onChange={(e) => setAddress(e.target.value)}
             />
+
+            <Label label={"Company Details"} />
             <textarea
               id={"input-company-details"}
-              placeholder={"Company Details"}
-              className="resize-y h-32 w-full bg-white placeholder-stone-600 text-neutral-900 font-normal border border-blue-400 focus:border focus:border-blue-400 focus:ring-0 rounded-sm p-2 pl-3 text-sm"
+              placeholder={
+                "A company that provides building construction planning and supervision services in Central Java"
+              }
+              className="resize-y h-32 w-full bg-white placeholder-stone-400 text-neutral-900 font-normal border border-blue-400 focus:border focus:border-blue-400 focus:ring-0 rounded-sm p-2 pl-3 mb-4 text-sm"
               required
               onChange={(e) => setDescription(e.target.value)}
             />
             <CustomButton
-              label={"Validation"}
+              label={"Join Now !"}
               loading={loading || disabled}
               disabled={
                 email.length === 0 ||

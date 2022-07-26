@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaChevronCircleLeft,
   FaChevronCircleRight,
@@ -13,9 +7,8 @@ import {
   FaWhatsapp,
   FaEnvelope,
   FaUserAlt,
-  FaWindows,
 } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 import { BidderHouse } from "../components/Bidder";
 import CustomButton from "../components/CustomButton";
 import { Input } from "../components/Input";
@@ -24,7 +17,7 @@ import { TrTd, TrTdDescription } from "../components/TrTd";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { apiRequest } from "../context/apiRequest";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import swal from "sweetalert";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
@@ -60,7 +53,6 @@ const DetailHouseList = () => {
   const fetchDetail = () => {
     apiRequest(`houses/${id}`, `GET`, {}).then((res) => {
       const { data } = res.data;
-      console.log(data);
       const image = [];
       Object.keys(data.image_url).map((img) => image.push(data.image_url[img]));
       const temp = {
@@ -107,7 +99,6 @@ const DetailHouseList = () => {
       nego: Number(bidder),
       status: "negotiation",
     };
-    console.log(body);
     axios
       .post(`https://housefancy.site/negotiations/${id}`, body, {
         headers: {
@@ -127,7 +118,6 @@ const DetailHouseList = () => {
           icon: "error",
           title: err.response.data.message,
         });
-        console.log(err);
       })
       .finally(() => fetchDetail());
   };
@@ -327,11 +317,16 @@ const DetailHouseList = () => {
             </div>
             <div className="border-t border-dashed border-blue-400 w-full mt-16" />
             <p className="font-semibold text-2xl self-start">Bidder</p>
-            <div className="self-start w-2/3">
+            <div className="self-start w-2/3 mb-10">
               {localStorage.getItem("token") ? (
                 <BidderHouse id={id} user_id={userId} />
               ) : (
-                <h1>Login untuk melihat penawaran orang lain</h1>
+                <h1 className="font-bold text-md">
+                  <Link to="/">
+                    <span className="text-blue-500">Login</span>
+                  </Link>{" "}
+                  to see other people's offers
+                </h1>
               )}
             </div>
           </div>

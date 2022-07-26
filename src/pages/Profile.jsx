@@ -5,8 +5,10 @@ import Layout from "../components/Layout";
 import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logoblue.png";
 
 const Profile = () => {
+  const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState({
     full_name: "",
     email: "",
@@ -43,7 +45,6 @@ const Profile = () => {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
         swal({
           icon: "error",
           title: err.response.data.message,
@@ -52,7 +53,7 @@ const Profile = () => {
   };
 
   const handleDelProfile = () => {
-    if (!window.confirm("Apakah anda yakin ingin menghapus akun anda?")) {
+    if (!window.confirm("Are You Sure To Delete Account?")) {
       return;
     }
 
@@ -69,7 +70,6 @@ const Profile = () => {
         })
       )
       .catch((err) => {
-        console.log(err);
         swal({
           icon: "error",
           title: err.response.data.message,
@@ -90,7 +90,6 @@ const Profile = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         setProfile({
           full_name: res.data.data.full_name,
           email: res.data.data.email,
@@ -98,139 +97,157 @@ const Profile = () => {
           address: res.data.data.address,
           image_url: res.data.data.image_url,
         });
+        setLoading(false);
       });
   }, []);
-  return (
-    <Layout>
-      <div className="flex flex-wrap p-20">
-        <div className="w-full font-bold text-2xl text-center mb-5">
-          My Profile
-        </div>
-        <div className="md:self-center lg:w-1/2 lg:self-center">
-          <div className="w-[220px] h-150px lg:w-[400px] lg:h-[400px]">
-            <img
-              src={profile.image_url}
-              alt="img-profile"
-              className="rounded-xl mb-3"
-            />
-            <CustomButton
-              label={"DELETE"}
-              color={"white"}
-              border={"red"}
-              borderWidth={2}
-              textColor={"red"}
-              onClick={() => handleDelProfile()}
-            />
-          </div>
-        </div>
 
-        <div className="md:pl-10 lg:px-10 lg:w-1/2 lg:self-center">
-          <form>
-            <div className="mb-5">
-              <label className="font-bold">Photo Profile </label>
-              <Input
-                id={"input-file"}
-                type={"file"}
-                onChange={(e) => setFile(e.target.files[0])}
-                placeholder={"img.jpg"}
-              />
-            </div>
-            <div className="mb-5">
-              <label className="font-bold">Fullname</label>
-              <Input
-                id={"input-fullname"}
-                type={"text"}
-                value={profile.full_name}
-                onChange={(e) =>
-                  setProfile((prev) => {
-                    return {
-                      ...prev,
-                      full_name: e.target.value,
-                    };
-                  })
-                }
-                placeholder={"Andaru Akbar"}
-              />
-            </div>
-            <div className="mb-5">
-              <label className="font-bold">Password</label>
-              <Input
-                id={"input-password"}
-                type={"password"}
-                onChange={(e) =>
-                  setProfile((prev) => {
-                    return {
-                      ...prev,
-                      password: e.target.value,
-                    };
-                  })
-                }
-                placeholder={"Password"}
-              />
-            </div>
-            <div className="mb-5">
-              <label className="font-bold">Phone Number </label>
-              <Input
-                id={"input-phone"}
-                type={"text"}
-                value={profile.phone_number}
-                onChange={(e) =>
-                  setProfile((prev) => {
-                    return {
-                      ...prev,
-                      phone_number: e.target.value,
-                    };
-                  })
-                }
-                placeholder={"08456786"}
-              />
-            </div>
-            <div className="mb-5">
-              <label className="font-bold">Email </label>
-              <Input
-                id={"input-email"}
-                type={"email"}
-                value={profile.email}
-                onChange={(e) =>
-                  setProfile((prev) => {
-                    return {
-                      ...prev,
-                      email: e.target.value,
-                    };
-                  })
-                }
-                placeholder={"name@mail.com"}
-              />
-            </div>
-            <div className="mb-5">
-              <label className="font-bold">Address </label>
-              <Input
-                id={"input-addres"}
-                type={"text"}
-                value={profile.address}
-                onChange={(e) =>
-                  setProfile((prev) => {
-                    return {
-                      ...prev,
-                      address: e.target.value,
-                    };
-                  })
-                }
-                placeholder={"Ponorogo"}
-              />
-            </div>
-            <CustomButton
-              label={"UPDATE"}
-              onClick={(e) => handleUpdate(e)}
-              type="submit"
-              color={"blue"}
-              textColor={"white"}
-            />
-          </form>
+  if (loading) {
+    return (
+      <div className="flex justify-center content-center">
+        <div className="flex flex-col h-screen justify-center ">
+          <img
+            src={logo}
+            alt="Loading"
+            width={200}
+            height={200}
+            className="animate-pulse"
+          />
         </div>
       </div>
-    </Layout>
-  );
+    );
+  } else {
+    return (
+      <Layout>
+        <div className="flex flex-wrap p-20">
+          <div className="w-full font-bold text-2xl text-center mb-5">
+            My Profile
+          </div>
+          <div className="md:self-center lg:w-1/2 lg:self-center">
+            <div className="w-[220px] h-150px lg:w-[400px] lg:h-[400px]">
+              <img
+                src={profile.image_url}
+                alt="img-profile"
+                className="rounded-xl mb-3"
+              />
+              <CustomButton
+                label={"DELETE ACCOUNT"}
+                color={"white"}
+                border={"red"}
+                borderWidth={2}
+                textColor={"red"}
+                onClick={() => handleDelProfile()}
+              />
+            </div>
+          </div>
+
+          <div className="md:pl-10 lg:px-10 lg:w-1/2 lg:self-center">
+            <form>
+              <div className="mb-5">
+                <label className="font-bold">Photo Profile </label>
+                <Input
+                  id={"input-file"}
+                  type={"file"}
+                  onChange={(e) => setFile(e.target.files[0])}
+                  placeholder={"img.jpg"}
+                />
+              </div>
+              <div className="mb-5">
+                <label className="font-bold">Fullname</label>
+                <Input
+                  id={"input-fullname"}
+                  type={"text"}
+                  value={profile.full_name}
+                  onChange={(e) =>
+                    setProfile((prev) => {
+                      return {
+                        ...prev,
+                        full_name: e.target.value,
+                      };
+                    })
+                  }
+                  placeholder={"Andaru Akbar"}
+                />
+              </div>
+              <div className="mb-5">
+                <label className="font-bold">Password</label>
+                <Input
+                  id={"input-password"}
+                  type={"password"}
+                  onChange={(e) =>
+                    setProfile((prev) => {
+                      return {
+                        ...prev,
+                        password: e.target.value,
+                      };
+                    })
+                  }
+                  placeholder={"Password"}
+                />
+              </div>
+              <div className="mb-5">
+                <label className="font-bold">Phone Number </label>
+                <Input
+                  id={"input-phone"}
+                  type={"text"}
+                  value={profile.phone_number}
+                  onChange={(e) =>
+                    setProfile((prev) => {
+                      return {
+                        ...prev,
+                        phone_number: e.target.value,
+                      };
+                    })
+                  }
+                  placeholder={"08456786"}
+                />
+              </div>
+              <div className="mb-5">
+                <label className="font-bold">Email </label>
+                <Input
+                  id={"input-email"}
+                  type={"email"}
+                  value={profile.email}
+                  onChange={(e) =>
+                    setProfile((prev) => {
+                      return {
+                        ...prev,
+                        email: e.target.value,
+                      };
+                    })
+                  }
+                  placeholder={"name@mail.com"}
+                />
+              </div>
+              <div className="mb-5">
+                <label className="font-bold">Address </label>
+                <Input
+                  id={"input-addres"}
+                  type={"text"}
+                  value={profile.address}
+                  onChange={(e) =>
+                    setProfile((prev) => {
+                      return {
+                        ...prev,
+                        address: e.target.value,
+                      };
+                    })
+                  }
+                  placeholder={"Ponorogo"}
+                />
+              </div>
+              <CustomButton
+                label={"UPDATE"}
+                onClick={(e) => handleUpdate(e)}
+                type="submit"
+                color={"blue"}
+                textColor={"white"}
+              />
+            </form>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 };
 
 export default Profile;

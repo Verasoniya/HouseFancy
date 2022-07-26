@@ -18,10 +18,8 @@ const HomeContracktor = () => {
       .then((res) => {
         const { data } = res.data;
         setContractor(data);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         swal({
           icon: "error",
           title: err,

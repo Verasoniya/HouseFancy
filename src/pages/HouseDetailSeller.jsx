@@ -50,7 +50,6 @@ function HouseDetailSeller(props) {
         );
         setHouse(data);
         setImageSlider(image);
-        console.log(image);
       })
       .catch((err) => {
         const { data } = err.response;
@@ -72,7 +71,6 @@ function HouseDetailSeller(props) {
       .then((res) => {
         const { data } = res.data;
         setBidder(data);
-        console.log(data);
       })
       .catch((err) => {
         const { data } = err.response;
@@ -94,11 +92,11 @@ function HouseDetailSeller(props) {
     apiRequest(`/negotiations/${house_id}?limit=12&offset=${offset}`, "GET", {})
       .then((res) => {
         const { data } = res.data;
-        console.log(res);
+
         const temp = bidder.slice();
         temp.push(...data);
         setBidder(temp);
-        console.log(temp);
+
         setOffset(newOffset);
       })
       .catch((err) => {
@@ -142,7 +140,6 @@ function HouseDetailSeller(props) {
 
     apiRequest(`/negotiations/${item}`, "PUT", body)
       .then((res) => {
-        console.log(status);
         swal({
           icon: "success",
           title: "House Sold Out",
@@ -218,9 +215,6 @@ function HouseDetailSeller(props) {
               />
               <div>
                 {image_slider.map((slide, index) => {
-                  // {
-                  //   console.log(slide);
-                  // }
                   return (
                     <div
                       className={index === current ? "slide active" : "slide"}
@@ -246,12 +240,28 @@ function HouseDetailSeller(props) {
             <div className="flex flex-col lg:flex-row justify-between w-full">
               <div className="flex flex-col w-full lg:w-1/2">
                 <TrTd title={"Location:"} content={house.location} />
-                <TrTd title={"Cost:"} content={house.price} />
+                <TrTd
+                  title={"Cost:"}
+                  content={new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                    minimumFractionDigits: 0,
+                  }).format(house.price)}
+                />
                 <TrTd title={"Surface Area:"} content={house.surface_area} />
                 <TrTd title={"Building Area:"} content={house.building_area} />
                 <TrTd title={"Bedrooms:"} content={house.bedroom} />
                 <TrTd title={"Bathrooms:"} content={house.bathroom} />
-                <TrTd title={"Certificate:"} content={house.certificate} />
+                <TrTd
+                  title={"Certificate:"}
+                  content={
+                    house.certificate === "SHM"
+                      ? "SHM (Surat Hak Milik)"
+                      : house.certificate === "HGB"
+                      ? "HGB (Hak Guna Bangunan)"
+                      : house.certificate
+                  }
+                />
                 <TrTdDescription
                   title={"Description:"}
                   content={house.description}
@@ -310,12 +320,15 @@ function HouseDetailSeller(props) {
             <div className="border-t border-dashed border-blue-400 w-full mt-16" />
             {house.status === "Sold Out" ? (
               <div className="self-start w-2/3 mb-10">
-                {console.log(bidder[0].user)}
                 <p className="font-semibold text-2xl mb-6">Owner</p>
                 <Owner
                   imageProfile={bidder[0].user.image_url}
                   fullname={bidder[0].user.full_name}
-                  bidNominal={bidder[0].nego}
+                  bidNominal={new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                    minimumFractionDigits: 0,
+                  }).format(bidder[0].nego)}
                   phone={bidder[0].user.phone_number}
                   email={bidder[0].user.email}
                 />
@@ -328,7 +341,6 @@ function HouseDetailSeller(props) {
                     key={item.id}
                     imageProfile={item.user.image_url}
                     fullname={item.user.full_name}
-                    // bidNominal={item.nego}
                     bidNominal={new Intl.NumberFormat("id-ID", {
                       style: "currency",
                       currency: "IDR",

@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import { TrTd, TrTdDescription } from "../components/TrTd";
 import "../../src/mycss.css";
+import logo from "../assets/logoblue.png";
 
 const defaultData = {
   client_name: "",
@@ -23,6 +24,7 @@ const defaultData = {
 };
 
 const DetailPortfolioContractor = () => {
+  const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
   const [portfolio, setPortfolio] = useState(defaultData);
   const { id } = useParams();
@@ -37,7 +39,7 @@ const DetailPortfolioContractor = () => {
       })
       .then((res) => {
         const { data } = res.data.data;
-        console.log(data);
+
         const image = [];
         Object.keys(data.image_url).map((img) =>
           image.push(data.image_url[img])
@@ -53,6 +55,7 @@ const DetailPortfolioContractor = () => {
           image_url: image,
         };
         setPortfolio(temp);
+        setLoading(false);
       });
   };
 
@@ -99,90 +102,105 @@ const DetailPortfolioContractor = () => {
   if (!Array.isArray(SliderData) || SliderData.length <= 0) {
     return null;
   }
-
-  return (
-    <Layout>
-      <div className="flex justify-center w-full mt-10">
-        <div className="flex flex-col items-center w-5/6 gap-8">
-          <p className="font-bold text-xl">Detail of Portfolio</p>
-          <div className="flex justify-between w-full">
-            <FaChevronCircleLeft
-              id="button-slidePrev"
-              className="text-5xl cursor-pointer select-none text-blue-300 hover:text-blue-500 self-center"
-              onClick={prevSlide}
-            />
-            <div>
-              {portfolio.image_url.map((slide, index) => {
-                return (
-                  <div
-                    className={index === current ? "slide active" : "slide"}
-                    key={index}
+  if (loading) {
+    return (
+      <div className="flex justify-center content-center">
+        <div className="flex flex-col h-screen justify-center ">
+          <img
+            src={logo}
+            alt="Loading"
+            width={200}
+            height={200}
+            className="animate-pulse"
+          />
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <Layout>
+        <div className="flex justify-center w-full mt-10">
+          <div className="flex flex-col items-center w-5/6 gap-8">
+            <p className="font-bold text-xl">Detail of Portfolio</p>
+            <div className="flex justify-between w-full">
+              <FaChevronCircleLeft
+                id="button-slidePrev"
+                className="text-5xl cursor-pointer select-none text-blue-300 hover:text-blue-500 self-center"
+                onClick={prevSlide}
+              />
+              <div>
+                {portfolio.image_url.map((slide, index) => {
+                  return (
+                    <div
+                      className={index === current ? "slide active" : "slide"}
+                      key={index}
+                    >
+                      {index === current && (
+                        <img
+                          src={
+                            Object.keys(slide.image_url).length !== 0
+                              ? slide.image_url
+                              : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+                          }
+                          alt="img-slider"
+                          className="w-[800px] h-[200px] lg:h-[300px]"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <FaChevronCircleRight
+                id="button-slideNext"
+                className="text-5xl cursor-pointer select-none text-blue-300 hover:text-blue-500 self-center"
+                onClick={nextSlide}
+              />
+            </div>
+            <p className="font-bold text-lg self-start">
+              {"Elegant house with strategic location"}
+            </p>
+            <div className="flex flex-col lg:flex-row justify-between w-full">
+              <div className="flex flex-col w-full lg:w-1/2">
+                <TrTd title={"Client:"} content={portfolio.client_name} />
+                <TrTd title={"Completed:"} content={portfolio.finish_date} />
+                <TrTd title={"Location:"} content={portfolio.location} />
+                <TrTd
+                  title={"Cost:"}
+                  content={new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                    minimumFractionDigits: 0,
+                  }).format(portfolio.price)}
+                />
+                <TrTdDescription
+                  title={"Description:"}
+                  content={portfolio.description}
+                />
+              </div>
+              <div className="flex flex-col w-full lg:w-2/5 mt-8 lg:mt-0 lg:self-start">
+                <div className="w-full mt-8 lg:mt-0">
+                  <MapContainer
+                    center={position}
+                    zoom={13}
+                    scrollWheelZoom={false}
+                    style={{ height: "250px" }}
                   >
-                    {index === current && (
-                      <img
-                        src={
-                          Object.keys(slide.image_url).length !== 0
-                            ? slide.image_url
-                            : "https://via.placeholder.com/400x200.jpg?text=No+Image"
-                        }
-                        alt="img-slider"
-                        className="w-[800px] h-[200px] lg:h-[300px]"
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-            <FaChevronCircleRight
-              id="button-slideNext"
-              className="text-5xl cursor-pointer select-none text-blue-300 hover:text-blue-500 self-center"
-              onClick={nextSlide}
-            />
-          </div>
-          <p className="font-bold text-lg self-start">
-            {"Elegant house with strategic location"}
-          </p>
-          <div className="flex flex-col lg:flex-row justify-between w-full">
-            <div className="flex flex-col w-full lg:w-1/2">
-              <TrTd title={"Client:"} content={portfolio.client_name} />
-              <TrTd title={"Completed:"} content={portfolio.finish_date} />
-              <TrTd title={"Location:"} content={portfolio.location} />
-              <TrTd
-                title={"Cost:"}
-                content={new Intl.NumberFormat("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
-                  minimumFractionDigits: 0,
-                }).format(portfolio.price)}
-              />
-              <TrTdDescription
-                title={"Description:"}
-                content={portfolio.description}
-              />
-            </div>
-            <div className="flex flex-col w-full lg:w-2/5 mt-8 lg:mt-0 lg:self-start">
-              <div className="w-full mt-8 lg:mt-0">
-                <MapContainer
-                  center={position}
-                  zoom={13}
-                  scrollWheelZoom={false}
-                  style={{ height: "250px" }}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  <Marker position={position}>
-                    <Popup>{portfolio.location}</Popup>
-                  </Marker>
-                </MapContainer>
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Marker position={position}>
+                      <Popup>{portfolio.location}</Popup>
+                    </Marker>
+                  </MapContainer>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </Layout>
-  );
+      </Layout>
+    );
+  }
 };
 
 export default DetailPortfolioContractor;

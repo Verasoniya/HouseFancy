@@ -31,7 +31,6 @@ function MyListHouse() {
         const { data } = res.data;
         // const { data } = res;
         setHouse(data);
-        console.log(data);
       })
       .catch((err) => {
         const { data } = err.response;
@@ -54,11 +53,11 @@ function MyListHouse() {
     apiRequest(`/houses/mylisthouses?limit=12&offset=${offset}`, "GET", {})
       .then((res) => {
         const { data } = res.data;
-        console.log(res.data);
+
         const temp = house.slice();
         temp.push(...data);
         setHouse(temp);
-        console.log(temp);
+
         setOffset(newOffset);
       })
       .catch((err) => {
@@ -81,8 +80,7 @@ function MyListHouse() {
       .then((res) => {
         const { data } = res.data;
         const image = [];
-        console.log("image", image);
-        console.log("data", data);
+
         Object.keys(data.image_url).map((img) =>
           image.push(data.image_url[img])
         );
@@ -107,11 +105,10 @@ function MyListHouse() {
     const id_house = item;
     const images = image;
     console.log(image);
-    console.log(images);
+
     const id_image = [];
     for (let i = 0; i < images.length; i++) {
       id_image.push(images[i].id);
-      console.log(images[i].id);
     }
 
     let requests = [];
@@ -124,12 +121,10 @@ function MyListHouse() {
             return Promise.resolve(true);
           })
           .catch((err) => {
-            console.log(err.message);
             return Promise.resolve(false);
           })
       );
     }
-    console.log("Loop");
 
     await Promise.all(requests).then((results) => {
       console.log("finished", results);

@@ -23,7 +23,7 @@ const Bidder = (props) => {
       <div className="flex flex-col gap-3">
         <div className="flex gap-4">
           <p className="font-bold text-lg self-center">{props.fullname}</p>
-          <p className="text-md self-center">IDR {props.bidNominal}</p>
+          <p className="text-md self-center">{props.bidNominal}</p>
         </div>
         <div className="flex gap-3">
           <CustomButton
@@ -102,7 +102,13 @@ const BidderHouse = ({ id, user_id, token }) => {
               <p className="font-bold text-lg self-center">
                 {data.user.full_name}
               </p>
-              <p className="text-md self-center">IDR {data.nego}</p>
+              <p className="text-md self-center">
+                {new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                  minimumFractionDigits: 0,
+                }).format(data.nego)}
+              </p>
             </div>
             {user_id == data.user.id && (
               <div className="flex gap-3">
@@ -127,8 +133,8 @@ const Owner = (props) => {
     <div className="flex gap-4">
       <div className="w-[50px] h-[50px]">
         <img
-          src={logo}
-          alt={logo}
+          src={props.imageProfile}
+          alt={props.imageProfile}
           width={50}
           height={50}
           className="rounded-full"
@@ -136,21 +142,21 @@ const Owner = (props) => {
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-4">
-          <p className="font-bold text-lg self-center">{}</p>
-          <p className="text-md self-center">IDR {}</p>
+          <p className="font-bold text-lg self-center">{props.fullname}</p>
+          <p className="text-md self-center">{props.bidNominal}</p>
         </div>
         <div className="flex flex-col">
           <div className="flex mb-1">
             <div className="self-center">
               <FaPhone />
             </div>
-            <p className="font-normal text-sm ml-2">{}</p>
+            <p className="font-normal text-sm ml-2">{props.phone}</p>
           </div>
           <div className="flex mb-1">
             <div className="self-center">
               <FaEnvelope />
             </div>
-            <p className="font-normal text-sm ml-2">{}</p>
+            <p className="font-normal text-sm ml-2">{props.email}</p>
           </div>
         </div>
       </div>

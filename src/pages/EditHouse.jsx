@@ -1,4 +1,11 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 
@@ -52,7 +59,6 @@ function EditHouse(props) {
           const posLatLong = marker.getLatLng();
           setLatitude(posLatLong.lat);
           setLongitude(posLatLong.lng);
-          console.log(posLatLong);
         }
       },
     }),
@@ -80,9 +86,10 @@ function EditHouse(props) {
         setLocation(data.location);
         setPrice(data.price);
         const image = [];
-        console.log("image", image);
-        console.log("data", data);
-        Object.keys(data.image_url).map((img) => image.push(data.image_url[img]));
+
+        Object.keys(data.image_url).map((img) =>
+          image.push(data.image_url[img])
+        );
         setImageDel(image);
       })
       .catch((err) => {
@@ -105,12 +112,10 @@ function EditHouse(props) {
     setLoading(true);
     e.preventDefault();
     const images = image_del;
-    console.log(image_del);
-    console.log(images);
+
     const id_image = [];
     for (let i = 0; i < images.length; i++) {
       id_image.push(images[i].id);
-      console.log(images[i].id);
     }
 
     let requests = [];
@@ -123,12 +128,10 @@ function EditHouse(props) {
             return Promise.resolve(true);
           })
           .catch((err) => {
-            console.log(err.message);
             return Promise.resolve(false);
           })
       );
     }
-    console.log("Loop");
 
     await Promise.all(requests).then((results) => {
       console.log("finished", results);
@@ -162,7 +165,6 @@ function EditHouse(props) {
 
     apiRequest(`/houses/${house_id}`, "PUT", body)
       .then((res) => {
-        console.log(house_id);
         handleSubmitImages(house_id);
       })
       .catch((err) => {
@@ -184,27 +186,28 @@ function EditHouse(props) {
   };
 
   const handleSubmitImages = async (house_id) => {
-    // console.log(files.files);
     const [image] = files.files;
     setLoading(true);
     let requests = [];
     for (let i = 0; i < image.length; i++) {
       const formData = new FormData();
       formData.append("files", image[i]);
-      console.log(image[i]);
 
       requests.push(
-        apiRequest(`/houses/images/${house_id}`, "POST", formData, "multipart/form-data")
+        apiRequest(
+          `/houses/images/${house_id}`,
+          "POST",
+          formData,
+          "multipart/form-data"
+        )
           .then(async (res) => {
             return Promise.resolve(true);
           })
           .catch((err) => {
-            console.log(err.message);
             return Promise.resolve(false);
           })
       );
     }
-    console.log("Loop");
 
     await Promise.all(requests).then((results) => {
       console.log("finished", results);
@@ -224,7 +227,13 @@ function EditHouse(props) {
     return (
       <div className="flex justify-center content-center">
         <div className="flex flex-col h-screen justify-center ">
-          <img src={logo} alt="Loading" width={200} height={200} className="animate-pulse" />
+          <img
+            src={logo}
+            alt="Loading"
+            width={200}
+            height={200}
+            className="animate-pulse"
+          />
         </div>
       </div>
     );
@@ -233,50 +242,137 @@ function EditHouse(props) {
       <Layout>
         <div className="flex flex-col items-center my-10">
           <p className="font-bold text-xl mb-10">Update Your Sale House</p>
-          <form className="flex flex-col w-full gap-1 lg:w-2/5 mb-10 px-4 lg:px-0" onSubmit={(e) => handleSubmitUpdate(e)}>
+          <form
+            className="flex flex-col w-full gap-1 lg:w-2/5 mb-10 px-4 lg:px-0"
+            onSubmit={(e) => handleSubmitUpdate(e)}
+          >
             <Label label={"House Image"} />
-            <Input type={"file"} multiple id={"input-image-house"} placeholder={"House Image"} required onChange={(e) => handleFileSelected(e)} />
+            <Input
+              type={"file"}
+              multiple
+              id={"input-image-house"}
+              placeholder={"House Image"}
+              required
+              onChange={(e) => handleFileSelected(e)}
+            />
 
             <Label label={"House Title"} />
-            <Input type={"text"} id={"input-house-title"} placeholder={"House Title"} required value={title} onChange={(e) => setTitle(e.target.value)} />
+            <Input
+              type={"text"}
+              id={"input-house-title"}
+              placeholder={"Plum Blossom Residence"}
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
 
             <Label label={"House Price"} />
-            <Input type={"number"} id={"input-house-price"} placeholder={"House Price"} required value={prices} onChange={(e) => setPrice(e.target.value)} />
+            <Input
+              type={"number"}
+              id={"input-house-price"}
+              placeholder={"500000000"}
+              required
+              value={prices}
+              onChange={(e) => setPrice(e.target.value)}
+            />
 
             <Label label={"House Location"} />
-            <Input type={"text"} id={"input-house-location"} placeholder={"House Location"} required value={location} onChange={(e) => setLocation(e.target.value)} />
+            <Input
+              type={"text"}
+              id={"input-house-location"}
+              placeholder={
+                "Jl. Galur Selatan, Galur, Kec. Johar Baru, Kota Jakarta Pusat, DKI Jakarta"
+              }
+              required
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
             <div className="z-0">
-              <MapContainer center={center} zoom={13} scrollWheelZoom={true} style={{ height: "250px" }}>
-                <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker draggable={draggable} eventHandlers={eventHandlers} position={center} ref={markerRef}>
+              <MapContainer
+                center={center}
+                zoom={13}
+                scrollWheelZoom={true}
+                style={{ height: "250px" }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker
+                  draggable={draggable}
+                  eventHandlers={eventHandlers}
+                  position={center}
+                  ref={markerRef}
+                >
                   <Popup minWidth={90}>
-                    <span onClick={toggleDraggable}>{draggable ? "Marker is draggable" : "Click here to change location"}</span>
+                    <span onClick={toggleDraggable}>
+                      {draggable
+                        ? "Marker is draggable"
+                        : "Click here to change location"}
+                    </span>
                   </Popup>
                 </Marker>
               </MapContainer>
             </div>
 
             <Label label={"Surface Area"} />
-            <Input type={"number"} id={"input-house-surface-area"} placeholder={"Surface Area"} required value={surface_areas} onChange={(e) => setSurfaceArea(e.target.value)} />
+            <Input
+              type={"number"}
+              id={"input-house-surface-area"}
+              placeholder={"100"}
+              required
+              value={surface_areas}
+              onChange={(e) => setSurfaceArea(e.target.value)}
+            />
 
             <Label label={"Building Area"} />
-            <Input type={"number"} id={"input-house-building-area"} placeholder={"Building Area"} required value={building_areas} onChange={(e) => setBuildingArea(e.target.value)} />
+            <Input
+              type={"number"}
+              id={"input-house-building-area"}
+              placeholder={"80"}
+              required
+              value={building_areas}
+              onChange={(e) => setBuildingArea(e.target.value)}
+            />
 
             <Label label={"Number of Bedrooms"} />
-            <Input type={"number"} id={"input-house-bedrooms"} placeholder={"Number of Bedrooms"} required value={bedrooms} onChange={(e) => setBedroom(e.target.value)} />
+            <Input
+              type={"number"}
+              id={"input-house-bedrooms"}
+              placeholder={"4"}
+              required
+              value={bedrooms}
+              onChange={(e) => setBedroom(e.target.value)}
+            />
 
             <Label label={"Number of Bathrooms"} />
-            <Input type={"number"} id={"input-house-bathrooms"} placeholder={"Number of Bathrooms"} required value={bathrooms} onChange={(e) => setBathroom(e.target.value)} />
+            <Input
+              type={"number"}
+              id={"input-house-bathrooms"}
+              placeholder={"4"}
+              required
+              value={bathrooms}
+              onChange={(e) => setBathroom(e.target.value)}
+            />
 
             <Label label={"House Certificate (SHM/HGB)"} />
-            <Input type={"text"} id={"input-house-certificate"} placeholder={"House Certificate (SHM/HGB)"} required value={certificate} onChange={(e) => setCertificate(e.target.value)} />
+            <Input
+              type={"text"}
+              id={"input-house-certificate"}
+              placeholder={"SHM/HGB"}
+              required
+              value={certificate}
+              onChange={(e) => setCertificate(e.target.value)}
+            />
 
             <Label label={"House Description"} />
             <textarea
               id={"input-house-description"}
-              placeholder={"House Description"}
+              placeholder={
+                "Sturdy house ready to live in the middle of the city. Strategic location, safe and comfortable"
+              }
               required
-              className="resize-y h-32 w-full bg-white placeholder-stone-600 text-neutral-900 font-normal border border-blue-400 focus:border focus:border-blue-400 focus:ring-0 rounded-sm p-2 pl-3 text-sm"
+              className="resize-y h-32 w-full bg-white placeholder-stone-400 text-neutral-900 font-normal border border-blue-400 focus:border focus:border-blue-400 focus:ring-0 rounded-sm p-2 pl-3 mb-4 text-sm"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
