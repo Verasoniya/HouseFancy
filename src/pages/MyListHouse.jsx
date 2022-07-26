@@ -83,7 +83,9 @@ function MyListHouse() {
         const image = [];
         console.log("image", image);
         console.log("data", data);
-        Object.keys(data.image_url).map((img) => image.push(data.image_url[img]));
+        Object.keys(data.image_url).map((img) =>
+          image.push(data.image_url[img])
+        );
         handleDelImageHouse(item, image);
       })
       .catch((err) => {
@@ -166,7 +168,13 @@ function MyListHouse() {
     return (
       <div className="flex justify-center content-center">
         <div className="flex flex-col h-screen justify-center ">
-          <img src={logo} alt="Loading" width={200} height={200} className="animate-pulse" />
+          <img
+            src={logo}
+            alt="Loading"
+            width={200}
+            height={200}
+            className="animate-pulse"
+          />
         </div>
       </div>
     );
@@ -174,34 +182,65 @@ function MyListHouse() {
     return (
       <Layout>
         <div className="w-14 text-3xl absolute bottom-12 right-8 md:bottom-14 md:right-16">
-          <CustomButton label={<FaPlus className="text-sm" />} radius={"50%"} padding={20} onClick={() => navigate("/add-house")} />
+          <CustomButton
+            label={<FaPlus className="text-sm" />}
+            radius={"50%"}
+            padding={20}
+            onClick={() => navigate("/add-house")}
+          />
         </div>
         <div className="flex justify-center">
-          <p className="font-bold text-xl text-neutral-900 mt-10">My List Sale House</p>
+          <p className="font-bold text-xl text-neutral-900 mt-10">
+            My List Sale House
+          </p>
         </div>
         <div className="flex items-center">
           <div className="grid grid-flow-row auto-rows-max w-full gap-6 my-8 mx-10 lg:mx-28 grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
             {house.map((item) => (
               <CardHouse
                 key={item.id}
-                imageHouse={item.image_url}
+                imageHouse={item.image_url["1"]}
                 titleHouse={item.title}
-                cost={item.price}
+                cost={new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                  minimumFractionDigits: 0,
+                }).format(item.price)}
                 location={item.location}
                 surfaceArea={item.surface_area}
                 buildingArea={item.building_area}
-                onClickDetailHouse={() => navigate(`/house-detail-seller/${item.id}`)}
+                onClickDetailHouse={() =>
+                  navigate(`/house-detail-seller/${item.id}`)
+                }
               >
                 <div className="flex justify-between mt-3">
                   <div className="flex gap-2">
                     <div className="w-8">
-                      <CustomButton label={<FaPencilAlt />} padding={6} color={"white"} textColor={"blue"} borderWidth={2} border={"blue"} onClick={() => navigate(`/edit-house/${item.id}`)} />
+                      <CustomButton
+                        label={<FaPencilAlt />}
+                        padding={6}
+                        color={"white"}
+                        textColor={"blue"}
+                        borderWidth={2}
+                        border={"blue"}
+                        onClick={() => navigate(`/edit-house/${item.id}`)}
+                      />
                     </div>
                     <div className="w-8">
-                      <CustomButton label={<FaTrash />} padding={6} color={"white"} textColor={"red"} borderWidth={2} border={"red"} onClick={() => handleDelSubmit(item.id)} />
+                      <CustomButton
+                        label={<FaTrash />}
+                        padding={6}
+                        color={"white"}
+                        textColor={"red"}
+                        borderWidth={2}
+                        border={"red"}
+                        onClick={() => handleDelSubmit(item.id)}
+                      />
                     </div>
                   </div>
-                  <p className="font-semibold text-sm self-center">{item.status.charAt(0).toUpperCase() + item.status.slice(1)}</p>
+                  <p className="font-semibold text-sm self-center">
+                    {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+                  </p>
                 </div>
               </CardHouse>
             ))}

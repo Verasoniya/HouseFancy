@@ -1,11 +1,18 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoblue from "../assets/logoblue.png";
 
 const Header = () => {
+  let navigate = useNavigate();
   const [token, setToken] = useState("");
   const [full_name, setFull_name] = useState("");
+  const [image, setImage] = useState("");
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
   useEffect(() => {
     let token = "";
@@ -20,7 +27,13 @@ const Header = () => {
       })
       .then((res) => {
         console.log(res);
+        setImage(res.data.data.image_url);
         setFull_name(res.data.data.full_name);
+      })
+      .catch((err) => {
+        if (localStorage.getItem("token")) {
+          localStorage.removeItem("token");
+        }
       });
   }, []);
 
@@ -34,13 +47,22 @@ const Header = () => {
           <div className="">Contractor</div>
         </Link>
       </div>
-      <div className="flex items-center font-bold gap-6 mr-4">
+      <div className="flex items-center font-bold gap-6">
         {/*sementara gini aja ya kalo mau logicnya untuk ganti nvbar klo blm ada tokennya bingung aku yg aku komentar yg mana biar gak eror*/}
 
         {token ? (
           <>
             <div className="dropdown">
-              <button className="dropbtnd p-1 rounded-t-md">{full_name}</button>
+              <button className="dropbtnd flex items-center">
+                {full_name}
+                <div className="ml-4 rounded-full w-8 h-8 overflow-hidden">
+                  <img
+                    src={image}
+                    alt={full_name}
+                    className="w-full self-center"
+                  />
+                </div>
+              </button>
               <div className="dropdown-content w-full rounded-b-md">
                 <Link to="/profile">
                   <button className="w-full">Profile</button>
@@ -54,6 +76,7 @@ const Header = () => {
                 <Link to="/history">
                   <button className="w-full">History</button>
                 </Link>
+                <button onClick={handleLogOut}>Log out</button>
               </div>
             </div>
           </>
