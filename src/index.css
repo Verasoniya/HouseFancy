@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 
+
+.loading{
+  margin-top: 50%;
+  margin-right: 50%;
+}
 .dropbtn {
   color:#F6F6F6 ;
   margin-right: 30px;

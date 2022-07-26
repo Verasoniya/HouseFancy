@@ -16,6 +16,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  // const [is_contractor, setIsContractor] = useState(false);
 
   useEffect(() => {
     if (email && password) {
@@ -36,9 +37,10 @@ function Login() {
       .then((res) => {
         const { data } = res;
         const { token } = data;
-        console.log(token);
+        const { is_contractor } = data;
 
         localStorage.setItem("token", token);
+        localStorage.setItem("is_contractor", is_contractor);
         setToken(token);
         swal({
           icon: "success",

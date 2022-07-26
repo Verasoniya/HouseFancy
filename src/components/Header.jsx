@@ -1,5 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import {
+  FaBuilding,
+  FaHistory,
+  FaHouseUser,
+  FaOutdent,
+  FaUserAlt,
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logoblue from "../assets/logoblue.png";
 
@@ -8,11 +15,16 @@ const Header = () => {
   const [token, setToken] = useState("");
   const [full_name, setFull_name] = useState("");
   const [image, setImage] = useState("");
+  const [is_contractor, setIsContractor] = useState(false);
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
     window.location.reload();
   };
+  useEffect(() => {
+    const getIsContractor = localStorage.getItem("is_contractor");
+    setIsContractor(getIsContractor);
+  }, [is_contractor]);
 
   useEffect(() => {
     let token = "";
@@ -65,18 +77,39 @@ const Header = () => {
               </button>
               <div className="dropdown-content w-full rounded-b-md">
                 <Link to="/profile">
-                  <button className="w-full">Profile</button>
+                  <div className="flex mr-2">
+                    <FaUserAlt className="mt-2" />
+                    <button className="w-full self-center">Profile</button>
+                  </div>
                 </Link>
                 <Link to="/join-contractor">
-                  <button className="w-full">Join Contractor</button>
+                  <div className="flex mr-2">
+                    <FaBuilding className="mt-2" />
+                    <button className="w-full">Join Contractor</button>
+                  </div>
+                </Link>
+                <Link to="/my-contractor-profile">
+                  <div className="flex mr-2">
+                    <FaBuilding className="mt-2" />
+                    <button className="w-full">As Contractor</button>
+                  </div>
                 </Link>
                 <Link to="/my-list-house">
-                  <button className="w-full">My List House</button>
+                  <div className="flex mr-2">
+                    <FaHouseUser className="mt-2" />
+                    <button className="w-full">My List House</button>
+                  </div>
                 </Link>
                 <Link to="/history">
-                  <button className="w-full">History</button>
+                  <div className="flex mr-2">
+                    <FaHistory className="mt-2" />
+                    <button className="w-full">History</button>
+                  </div>
                 </Link>
-                <button onClick={handleLogOut}>Log out</button>
+                <div className="flex mr-2">
+                  <FaOutdent className="mt-2" />
+                  <button onClick={handleLogOut}>Log out</button>
+                </div>
               </div>
             </div>
           </>

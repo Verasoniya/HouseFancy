@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import { CardHouse } from "../components/Card";
 import { apiRequest } from "../context/apiRequest";
 import swal from "sweetalert";
-import logoblue from "../assets/logoblue.png";
+
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import logo from "../assets/logoblue.png";
@@ -17,6 +17,7 @@ const Location = [
   "Malang",
   "Yogyakarta",
   "Semarang",
+  "Tangerang",
 ];
 
 const Min = [
@@ -78,7 +79,6 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchListHouse();
-    console.log(logo);
   }, []);
 
   const handleSearch = (e) => {
@@ -95,7 +95,6 @@ const HomePage = () => {
       .get(`https://housefancy.site/houses/searches?keyword=${keyword}`, body)
       .then((res) => {
         setListHouse(res.data.data.data);
-        console.log(res.data.data.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
@@ -105,7 +104,6 @@ const HomePage = () => {
     apiRequest(`houses`, "GET", {})
       .then((res) => {
         const { data } = res.data;
-        console.log(data);
         setListHouse(data);
       })
       .catch((err) => {
@@ -214,8 +212,7 @@ const HomePage = () => {
                       <option> Max </option>
                       {Max.map(({ desc, value }) => (
                         <option value={value} key={value}>
-                          {" "}
-                          {desc}{" "}
+                          {desc}
                         </option>
                       ))}
                     </select>
@@ -229,7 +226,7 @@ const HomePage = () => {
 
       {searchParams.get("search") && (
         <h1 className="text-center mt-12 text-2xl font-bold">
-          Hasil dari pencarian "{searchParams.get("keyword")}"
+          Search results "{searchParams.get("keyword")}"
         </h1>
       )}
       <div className="flex items-center my-10">
@@ -243,12 +240,11 @@ const HomePage = () => {
                 height={200}
                 className="animate-pulse mx-auto"
               />
-              <h1 className="text-2xl font-bold text-center">Loading...</h1>
             </div>
           </div>
         ) : (
           <div className="grid grid-flow-row auto-rows-max w-full gap-8 my-8 mx-10 lg:mx-36 grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
-            {listHouse.length === 0 && <h1>Tidak ada rumah</h1>}
+            {listHouse.length === 0 && <h1>No house</h1>}
             {listHouse.map((item) => (
               <CardHouse
                 key={item.id}

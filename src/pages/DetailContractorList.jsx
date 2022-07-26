@@ -24,7 +24,7 @@ const DetailContractorList = () => {
   const fetchPortfolio = async () => {
     apiRequest(`portfolios/contractors/${id}`, `GET`, {}).then((res) => {
       const data = res.data;
-      console.log(data.data);
+
       setPortofolio(data.data);
     });
   };
@@ -32,7 +32,7 @@ const DetailContractorList = () => {
   const fetchContractor = async () => {
     apiRequest(`contractors/${id}`, `GET`, {}).then((res) => {
       const data = res.data;
-      console.log(data);
+
       setContractor((current) => {
         return {
           image_url: data.image_url,

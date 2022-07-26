@@ -10,7 +10,6 @@ import { Label } from "../components/Label";
 import Layout from "../components/Layout";
 
 import { TokenContext } from "../context/AuthContext";
-import { withRouter } from "../context/navigations";
 import { apiRequest } from "../context/apiRequest";
 import logo from "../assets/logoblue.png";
 
@@ -18,6 +17,7 @@ function MyContractorProfile() {
   const navigate = useNavigate();
   const { setToken } = useContext(TokenContext);
   const [loading, setLoading] = useState(true);
+  const [objSubmit, setObjSubmit] = useState("");
   const [id_contractor, setContractorId] = useState("");
   const [contractor_name, setContractorName] = useState("");
   const [number_siujk, setNumberSIUJK] = useState("");
@@ -71,7 +71,7 @@ function MyContractorProfile() {
         }
         swal({
           icon: "error",
-          title: data.message,
+          title: "you have not registered as a building, please register",
         });
       })
       .finally(() => setLoading(false));
@@ -108,7 +108,6 @@ function MyContractorProfile() {
       "GET",
       {}
     )
-      // apiRequest(`/portfolios/contractors/1?limit=12&offset=${offset}`, "GET", {})
       .then((res) => {
         const { data } = res.data;
         console.log(res.data);
@@ -133,22 +132,18 @@ function MyContractorProfile() {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("certificate_file", certificate_file);
-    formData.append("image_file", image_file);
-    formData.append("contractor_name", contractor_name);
-    formData.append("phone_number", phone_number);
-    formData.append("number_siujk", number_siujk);
-    formData.append("description", description);
-    formData.append("address", address);
-    formData.append("email", email);
+    for (const key in objSubmit) {
+      formData.append(key, objSubmit[key]);
+    }
 
     apiRequest(
       `/contractors/${id_contractor}`,
       "PUT",
-      formData,
+      objSubmit,
       "multipart/form-data"
     )
       .then(async (res) => {
@@ -156,7 +151,6 @@ function MyContractorProfile() {
           icon: "success",
           title: "Successfully to Update",
         });
-        fetchContractorDetail();
       })
       .catch((err) => {
         const { data } = err.response;
@@ -169,7 +163,15 @@ function MyContractorProfile() {
           icon: "error",
           title: data.message,
         });
-      });
+      })
+
+      .finally(() => fetchContractorDetail());
+  };
+
+  const handleChange = (value, key) => {
+    let temp = { ...objSubmit };
+    temp[key] = value;
+    setObjSubmit(temp);
   };
 
   const handleDelContractor = async () => {
@@ -312,93 +314,15 @@ function MyContractorProfile() {
         <div className="flex flex-col items-center my-10">
           <p className="font-bold text-xl mb-10">{contractor_name}</p>
           <div className="flex flex-col lg:flex-row justify-center lg:justify-around w-full lg:w-3/4">
-            <form
-              className="flex flex-col w-full gap-1 lg:w-2/5 px-4 lg:px-0 mb-6 lg:mb-0"
-              onSubmit={(e) => handleSubmit(e)}
-            >
-              <Label label={"Company Photo Profile"} />
-              <Input
-                type={"file"}
-                id={"input-photo-profile"}
-                placeholder={"Company Photo Profile"}
-                onChange={(e) => {
-                  setImageProfile(URL.createObjectURL(e.target.files[0]));
-                }}
-              />
-
-              <Label label={"Company Name"} />
-              <Input
-                type={"text"}
-                id={"input-company-name"}
-                placeholder={"Company Name"}
-                value={contractor_name}
-                onChange={(e) => setContractorName(e.target.value)}
-              />
-
-              <Label label={"SIUJK Number"} />
-              <Input
-                type={"text"}
-                id={"input-siujk-number"}
-                placeholder={"SIUJK Number"}
-                value={number_siujk}
-                onChange={(e) => setNumberSIUJK(e.target.value)}
-              />
-
-              <Label label={"Upload Certificate SIUJK"} />
-              <Input
-                type={"file"}
-                id={"input-siujk-file"}
-                placeholder={"Upload Certificate SIUJK"}
-                onChange={(e) => {
-                  setCertificateFile(URL.createObjectURL(e.target.files[0]));
-                }}
-              />
-
-              <Label label={"Company Phone Number"} />
-              <Input
-                type={"text"}
-                id={"input-company-phone"}
-                placeholder={"Company Phone Number"}
-                value={phone_number}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
-
-              <Label label={"Company Email"} />
-              <Input
-                type={"email"}
-                id={"input-company-email"}
-                placeholder={"Company Email"}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-
-              <Label label={"Company Address"} />
-              <Input
-                type={"text"}
-                id={"input-company-address"}
-                placeholder={"Company Address"}
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-
-              <Label label={"Company Details"} />
-              <textarea
-                id={"input-company-details"}
-                placeholder={"Company Details"}
-                className="resize-y h-32 w-full bg-white placeholder-stone-600 text-neutral-900 font-normal border border-blue-400 focus:border focus:border-blue-400 focus:ring-0 rounded-sm p-2 pl-3 text-sm"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <CustomButton label={"UPDATE"} loading={loading} />
-            </form>
             <div className="self-center">
+              <p className="font-semibold text-sm mb-1">Photo Profile</p>
               <img
                 src={image_file}
                 alt={"Company Photo Profile"}
                 width={300}
                 className="rounded-xl border mb-8"
               />
-              <p className="font-semibold text-sm mb-3">Certificate</p>
+              <p className="font-semibold text-sm mb-1">SIUJK Certificate</p>
               <img
                 src={certificate_file}
                 alt={"Company SIUJK Certificate"}
@@ -415,6 +339,117 @@ function MyContractorProfile() {
                 onClick={() => handleDelContractor()}
               />
             </div>
+            <form
+              className="flex flex-col w-full gap-1 lg:w-2/5 px-4 lg:px-0 mb-6 lg:mb-0 mt-10 lg:mt-0"
+              onSubmit={(e) => handleSubmit(e)}
+            >
+              <Label label={"Upload Company Photo Profile"} />
+              <Input
+                type={"file"}
+                id={"input-photo-profile"}
+                placeholder={"Company Photo Profile"}
+                required
+                onChange={(e) => {
+                  setImageProfile(URL.createObjectURL(e.target.files[0]));
+                  handleChange(e.target.files[0], "image_file");
+                }}
+              />
+
+              <Label label={"Company Name"} />
+              <Input
+                type={"text"}
+                id={"input-company-name"}
+                placeholder={"Stone Construction"}
+                value={contractor_name}
+                required
+                onChange={(e) => {
+                  setContractorName(e.target.value);
+                  handleChange(e.target.value, "contractor_name");
+                }}
+              />
+
+              <Label label={"SIUJK Number"} />
+              <Input
+                type={"text"}
+                id={"input-siujk-number"}
+                placeholder={"0-3171-07-002-1-09-002587"}
+                value={number_siujk}
+                required
+                onChange={(e) => {
+                  setNumberSIUJK(e.target.value);
+                  handleChange(e.target.value, "number_siujk");
+                }}
+              />
+
+              <Label label={"Upload SIUJK Certificate"} />
+              <Input
+                type={"file"}
+                id={"input-siujk-file"}
+                placeholder={"Upload SIUJK Certificate"}
+                required
+                onChange={(e) => {
+                  setCertificateFile(URL.createObjectURL(e.target.files[0]));
+                  handleChange(e.target.files[0], "certificate_file");
+                }}
+              />
+
+              <Label label={"Company Phone Number"} />
+              <Input
+                type={"text"}
+                id={"input-company-phone"}
+                placeholder={"083124423671"}
+                value={phone_number}
+                required
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                  handleChange(e.target.value, "phone_number");
+                }}
+              />
+
+              <Label label={"Company Email"} />
+              <Input
+                type={"email"}
+                id={"input-company-email"}
+                placeholder={"info@stoneconstruction.com"}
+                value={email}
+                required
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  handleChange(e.target.value, "email");
+                }}
+              />
+
+              <Label label={"Company Address"} />
+              <Input
+                type={"text"}
+                id={"input-company-address"}
+                placeholder={
+                  "Jl. Pucang Argo Tengah Raya, Batursari, Kec. Mranggen, Kab. Demak, Jawa Tengah"
+                }
+                value={address}
+                required
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                  handleChange(e.target.value, "address");
+                }}
+              />
+
+              <Label label={"Company Details"} />
+              <textarea
+                id={"input-company-details"}
+                placeholder={
+                  "A company that provides building construction planning and supervision services in Central Java"
+                }
+                className="resize-y h-32 w-full bg-white placeholder-stone-400 text-neutral-900 font-normal border border-blue-400 focus:border focus:border-blue-400 focus:ring-0 rounded-sm p-2 pl-3 mb-4 text-sm"
+                required
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  handleChange(e.target.value, "description");
+                }}
+              />
+              <CustomButton label={"UPDATE"} loading={loading} />
+            </form>
           </div>
           <div className="w-5/6">
             <div className="border-t border-dashed border-blue-400 mt-16 mb-10" />
@@ -427,12 +462,16 @@ function MyContractorProfile() {
                   key={item.id}
                   imagePortfolio={item.image_url}
                   nameClient={item.client_name}
-                  cost={item.price}
+                  cost={new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                    minimumFractionDigits: 0,
+                  }).format(item.price)}
                   onClickDetailPortfolio={() =>
                     navigate(`/portfolios-details/${item.id}`)
                   }
                 >
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 ml-0 lg:ml-2">
                     <div className="w-8">
                       <CustomButton
                         label={<FaPencilAlt />}
