@@ -52,7 +52,7 @@ const DetailContractorList = () => {
   }, []);
   return (
     <Layout>
-      <div className="flex flex-wrap p-20">
+      <div className="flex flex-wrap px-20">
         <p className="w-full text-center font-bold text-2xl mb-10">
           {contractor.contractor_name}
         </p>
@@ -64,9 +64,9 @@ const DetailContractorList = () => {
                 : "https://via.placeholder.com/400x200.jpg?text=No+Image"
             }
             alt="img-profile"
-            className="rounded-xl mb-3"
+            className="rounded-xl mb-10 object-center"
           />
-          <div className="px-2.5 py-2 shadow-sm shadow-slate-700">
+          <div className="px-2.5 py-2 shadow-sm self-center shadow-slate-700">
             <div className="flex gap-2">
               <FaPhone className="text-md self-center" />
               <p className="font-thin text-md">{contractor.phone_number}</p>
@@ -99,6 +99,8 @@ const DetailContractorList = () => {
             <p>{contractor.description}</p>
           </div>
         </div>
+      </div>
+      <div className="px-20">
         <p className="font-bold text-xl mt-5">Portfolio:</p>
         <div className="flex items-center mt-5">
           <div className="grid grid-flow-row auto-rows-max w-full gap-8   lg: grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 content-center">
@@ -107,7 +109,11 @@ const DetailContractorList = () => {
                 id={data.id}
                 imagePortfolio={data.image_url}
                 nameClient={data.client_name}
-                cost={data.price}
+                cost={new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                  minimumFractionDigits: 0,
+                }).format(data.price)}
               />
             ))}
           </div>

@@ -6,14 +6,19 @@ import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CardHouse = (props) => {
-  console.log(props.imageHouse);
+  let image = "";
+  if (typeof props.imageHouse === "object") {
+    image = props.imageHouse.image_url;
+  } else {
+    image = props.imageHouse;
+  }
   return (
     <div className="container flex flex-col justify-between bg-white shadow-zinc-700 shadow rounded-sm p-2 text-neutral-800">
       <Link to={`/detail/${props.id}`}>
         <img
           src={
-            Object.keys(props.imageHouse).length !== 0
-              ? props.imageHouse["1"].image_url
+            props.imageHouse
+              ? image
               : "https://via.placeholder.com/400x200.jpg?text=No+Image"
           }
           alt={props.imageHouse}
@@ -32,7 +37,7 @@ const CardHouse = (props) => {
             <div className="self-center">
               <FaDollarSign className="text-xs" />
             </div>
-            <p className="font-normal text-xs ml-1">IDR {props.cost}</p>
+            <p className="font-normal text-xs ml-1">{props.cost}</p>
           </div>
           <div className="flex mb-1">
             <div className="self-center">
@@ -112,6 +117,7 @@ const CardPortfolio = (props) => {
               : "https://via.placeholder.com/400x200.jpg?text=No+Image"
           }
           alt={props.imagePortfolio}
+          className="h-48 w-full object-cover"
         />
       </Link>
 
@@ -125,10 +131,7 @@ const CardPortfolio = (props) => {
               Client:
               {props.nameClient}
             </p>
-            <p className="font-normal text-xs my-1">
-              Cost: IDR
-              {props.cost}
-            </p>
+            <p className="font-normal text-xs my-1">{props.cost}</p>
           </div>
           <div>{props.children}</div>
         </div>

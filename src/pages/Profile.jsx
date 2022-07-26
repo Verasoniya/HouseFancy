@@ -4,6 +4,7 @@ import CustomButton from "../components/CustomButton";
 import Layout from "../components/Layout";
 import axios from "axios";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -16,6 +17,7 @@ const Profile = () => {
   });
 
   const [file, setFile] = useState(null);
+  let navigate = useNavigate();
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -33,12 +35,13 @@ const Profile = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .then(() =>
+      .then(() => {
         swal({
           icon: "success",
           title: "Profile berhasil diperbarui",
-        })
-      )
+        });
+        window.location.reload();
+      })
       .catch((err) => {
         console.log(err);
         swal({
@@ -48,29 +51,38 @@ const Profile = () => {
       });
   };
 
-  // const handleDelProfile = () => {
-  //   axios
-  //     .delete(`https://housefancy.site/users`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     })
-  //     .then(() =>
-  //       swal({
-  //         icon: "success",
-  //         title: "successful deleting profile",
-  //       })
-  //     )
-  //     .catch((err) => {
-  //       console.log(err);
-  //       swal({
-  //         icon: "error",
-  //         title: err.response.data.message,
-  //       });
-  //     });
-  // };
+  const handleDelProfile = () => {
+    if (!window.confirm("Apakah anda yakin ingin menghapus akun anda?")) {
+      return;
+    }
+
+    axios
+      .delete(`https://housefancy.site/users`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(() =>
+        swal({
+          icon: "success",
+          title: "successful deleting profile",
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        swal({
+          icon: "error",
+          title: err.response.data.message,
+        });
+      })
+      .finally(() => navigate("/login"));
+  };
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+
     axios
       .get(`https://housefancy.site/users`, {
         headers: {
@@ -107,7 +119,7 @@ const Profile = () => {
               border={"red"}
               borderWidth={2}
               textColor={"red"}
-              // onClick={() => handleDelProfile()}
+              onClick={() => handleDelProfile()}
             />
           </div>
         </div>

@@ -9,8 +9,7 @@ import { useParams } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import { TrTd, TrTdDescription } from "../components/TrTd";
-import "../../src/mycss.css"
-
+import "../../src/mycss.css";
 
 const defaultData = {
   client_name: "",
@@ -20,7 +19,7 @@ const defaultData = {
   latitude: 0,
   price: 0,
   description: "",
-  img_url: [],
+  image_url: [],
 };
 
 const DetailPortfolioContractor = () => {
@@ -61,6 +60,10 @@ const DetailPortfolioContractor = () => {
     fetchDetail();
   }, []);
 
+  const position = {
+    lat: portfolio.longitude,
+    lng: portfolio.latitude,
+  };
   const SliderData = [
     {
       image:
@@ -109,7 +112,7 @@ const DetailPortfolioContractor = () => {
               onClick={prevSlide}
             />
             <div>
-              {SliderData.map((slide, index) => {
+              {portfolio.image_url.map((slide, index) => {
                 return (
                   <div
                     className={index === current ? "slide active" : "slide"}
@@ -117,7 +120,11 @@ const DetailPortfolioContractor = () => {
                   >
                     {index === current && (
                       <img
-                        src={slide.image}
+                        src={
+                          Object.keys(slide.image_url).length !== 0
+                            ? slide.image_url
+                            : "https://via.placeholder.com/400x200.jpg?text=No+Image"
+                        }
                         alt="img-slider"
                         className="w-[800px] h-[200px] lg:h-[300px]"
                       />
@@ -140,7 +147,14 @@ const DetailPortfolioContractor = () => {
               <TrTd title={"Client:"} content={portfolio.client_name} />
               <TrTd title={"Completed:"} content={portfolio.finish_date} />
               <TrTd title={"Location:"} content={portfolio.location} />
-              <TrTd title={"Cost:"} content={portfolio.price} />
+              <TrTd
+                title={"Cost:"}
+                content={new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                  minimumFractionDigits: 0,
+                }).format(portfolio.price)}
+              />
               <TrTdDescription
                 title={"Description:"}
                 content={portfolio.description}
@@ -149,7 +163,7 @@ const DetailPortfolioContractor = () => {
             <div className="flex flex-col w-full lg:w-2/5 mt-8 lg:mt-0 lg:self-start">
               <div className="w-full mt-8 lg:mt-0">
                 <MapContainer
-                  center={[portfolio.longitude, portfolio.latitude]}
+                  center={position}
                   zoom={13}
                   scrollWheelZoom={false}
                   style={{ height: "250px" }}
@@ -158,7 +172,7 @@ const DetailPortfolioContractor = () => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <Marker position={[portfolio.longitude, portfolio.latitude]}>
+                  <Marker position={position}>
                     <Popup>{portfolio.location}</Popup>
                   </Marker>
                 </MapContainer>
