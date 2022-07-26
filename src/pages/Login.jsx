@@ -49,7 +49,6 @@ function Login() {
         navigate("/homepage");
       })
       .catch((err) => {
-        console.log(err);
         const { data } = err.response;
         if ([401, 403].includes(data.code)) {
           localStorage.removeItem("token");

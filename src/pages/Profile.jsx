@@ -45,7 +45,6 @@ const Profile = () => {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
         swal({
           icon: "error",
           title: err.response.data.message,
@@ -71,7 +70,6 @@ const Profile = () => {
         })
       )
       .catch((err) => {
-        console.log(err);
         swal({
           icon: "error",
           title: err.response.data.message,

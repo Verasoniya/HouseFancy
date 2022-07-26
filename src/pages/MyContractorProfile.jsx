@@ -59,7 +59,6 @@ function MyContractorProfile() {
         setImageProfile(image_url);
         setCertificateFile(certificate_siujk_url);
 
-        console.log(res);
         fetchMyPortfolio(id);
       })
       .catch((err) => {
@@ -83,7 +82,7 @@ function MyContractorProfile() {
       .then((res) => {
         const { data } = res.data;
         // const { data } = res;
-        console.log(data);
+
         setPortfolio(data);
       })
       .catch((err) => {
@@ -110,11 +109,11 @@ function MyContractorProfile() {
     )
       .then((res) => {
         const { data } = res.data;
-        console.log(res.data);
+
         const temp = portfolio.slice();
         temp.push(...data);
         setPortfolio(temp);
-        console.log(temp);
+
         setOffset(newOffset);
       })
       .catch((err) => {
@@ -203,8 +202,7 @@ function MyContractorProfile() {
       .then((res) => {
         const { data } = res.data;
         const image = [];
-        console.log("image", image);
-        console.log("data", data);
+
         Object.keys(data.image_url).map((img) =>
           image.push(data.image_url[img])
         );
@@ -228,12 +226,10 @@ function MyContractorProfile() {
   const handleDelImagePortfolio = async (item, image) => {
     const id_portfolio = item;
     const images = image;
-    console.log(image);
-    console.log(images);
+
     const id_image = [];
     for (let i = 0; i < images.length; i++) {
       id_image.push(images[i].id);
-      console.log(images[i].id);
     }
 
     let requests = [];
@@ -246,12 +242,10 @@ function MyContractorProfile() {
             return Promise.resolve(true);
           })
           .catch((err) => {
-            console.log(err.message);
             return Promise.resolve(false);
           })
       );
     }
-    console.log("Loop");
 
     await Promise.all(requests).then((results) => {
       console.log("finished", results);
