@@ -13,8 +13,8 @@ const Bidder = (props) => {
     <div className="flex gap-4">
       <div className="w-[50px] h-[50px]">
         <img
-          src={logo}
-          alt={logo}
+          src={props.imageProfile}
+          alt={props.imageProfile}
           width={50}
           height={50}
           className="rounded-full"
