@@ -1,8 +1,146 @@
-# Getting Started with Create React App
+<div align="center">
+    <br>
+        <img src="https://drive.google.com/uc?export=view&id=1D4LzZmGILLbY-PkzDE7KUrZRdzsf6ONM" alt="House Fancy" width="100px"/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# House Fancy
 
-## Available Scripts
+<strong>This project is a web application for sell and buy house and connect contractor service with user. This project is the final project in the Alterra Academy Frontend Batch 6 bootcamp</strong>
+
+</div>
+<br>
+
+## See the Feature and UI Design of this project:
+
+<details><summary>Click Now!</summary>
+
+- Home Page <br>
+  The first display that user see is a list of all sale house, user can click More to see more list sale house. To see details of house, User can click on title of house. In this page user also can use advanced search house with any filter.
+
+  <img src="https://drive.google.com/uc?export=view&id=1-xwaRO0zzldo2Sa6-p2hEXnH_c2-d4DH" alt="Home"/>
+
+- Register and Login Page <br>
+  Fill in all the required inputs to register.<br>
+  Then, fill in email and password to log in.
+
+  - Register Page
+
+    <img src="https://drive.google.com/uc?export=view&id=1m123_YDk2JJv7H4DFgSfYVBsrfpPfIU6" alt="Register"/>
+
+  - Login Page
+
+    <img src="https://drive.google.com/uc?export=view&id=155nLf_XeIg5Olg4rBXPMJzLpdhPVFKvZ" alt="Login"/>
+
+- Details House Page | User Side <br>
+  Displays detailed information about the clicked house including price, house description, and location. In this page user can add Bid amount and see another Bidder and user can chat seller by Whatsapp.
+
+  <img src="https://drive.google.com/uc?export=view&id=1fEuaWgUqxBKNV1LxJFP8PZpa6qEN_ieA" alt="Details House Page"/>
+
+- Details House when Owned Page | User Side <br>
+  This page will display the house details the same as in the Details House | User Side, it's just that the section that displays the Bidder will change to show the Owner of this house.
+
+  <img src="https://drive.google.com/uc?export=view&id=1_n1E8lgZyFcEeIsn3Bb1uxj4BHWOlcxt" alt="Details House when Owned"/>
+
+- User Profile Page | User Side <br>
+  This page will display the user profile information and user can update information account. User also can delete account by click delete button.
+
+  <img src="https://drive.google.com/uc?export=view&id=1ZcwM-V8u3EoK6XfUV7evwmn4uAcdxLWE" alt="User Profile"/>
+
+- History of User's House Page <br>
+  This page will display all history about user house statue on Negotiation, Canceled or Owned of House.
+
+  <img src="https://drive.google.com/uc?export=view&id=1MJV455OkKUG6GIw43Kxs1mTmDmg2HnkH" alt="History User"/>
+
+- List Contracor Page | User Side <br>
+  This page will display list of all contractors on this website, user can click More to see more list of contractors.
+
+  <img src="https://drive.google.com/uc?export=view&id=1ee4i_UrkDSTF8sdplzQpJL1zZft8enej" alt="List Contracor"/>
+
+- Details Contracor Page | User Side <br>
+  This page will display details information of the contractor profile and show the contractor's portfolio lists. In this page user also can chat the contractor by Whatsapp.
+
+  <img src="https://drive.google.com/uc?export=view&id=12Tx_yVzvdmLB2b51Eym5TtlbenMp0K8j" alt="Details Contracor"/>
+
+- Details Portfolio Page | User Side <br>
+  This page will display details of portfolio include cost, description, and location of contractor's project.
+
+  <img src="https://drive.google.com/uc?export=view&id=1FcL-LIBXGxXyfTGVRcdhUi9nN31uG6dh" alt="Details Portfolio"/>
+
+- Add House Page | Seller Side <br>
+  This page will display form for adding sale house. Seller must fiiled any details for seller's house.
+
+  <img src="https://drive.google.com/uc?export=view&id=18yeVCob40Ix1_vHhgEAj5ihjRP2OQ18G" alt="Add House"/>
+
+- Edit House Page | Seller Side <br>
+  This page will display form for editing sale house details.
+
+  <img src="https://drive.google.com/uc?export=view&id=1xFr5w3YKTkBRuqgqCQt_SBex-3vXxj1T" alt="Edit House"/>
+
+- My List Sale House Page | Seller Side <br>
+  This page will display all lists of seller's house sale. Seller can edit and delete house by click pencil and trash icon. Seller can add house for sale by click plus icon.
+
+  <img src="https://drive.google.com/uc?export=view&id=1UZkh8Ec9vIPRD-uo_2Iy9XZPpXtL6Qio" alt="My List Sale House"/>
+
+- Details House Page | Seller Side <br>
+  This page will display details information of seller's house, seller can see the Bidder and seller can chat bidder by whatsapp. In this page Seller can approve bidding by deal button and reject by cancel button.
+
+  <img src="https://drive.google.com/uc?export=view&id=1zQTBiyv_P5ebtJ9BszNud7Ua2a7qHRt9" alt="Details House"/>
+
+- Join Contractor Page <br>
+  This page will display form to join as contrator.
+
+  <img src="https://drive.google.com/uc?export=view&id=1bBBbJIEO-A3GcedIDjW3qSC-d7InDBhv" alt="Join Contractor"/>
+
+- Contractor Profile Page | Contractor Side <br>
+  This page will display contractor profile, the contractor can update contractor profile and delete contractor account by delete button. In this page will show list all contractor's portfolio and contractor can add portfolio by click plus button. Contractor can edit and delete portfolio by click pencil and trash button.
+
+  <img src="https://drive.google.com/uc?export=view&id=1SwJksGJYxvnJ99y58kK10kL4dNUCl1Pj" alt="Contractor Profile"/>
+
+- Add Portfolio Page | Contractor Side <br>
+  This page will display form to add information of contractor's portfolio.
+
+  <img src="https://drive.google.com/uc?export=view&id=16I7L2j5YTkUHgBc4uhx4HxVey-fp1Ai7" alt="Add Portfolio"/>
+
+</details>
+
+<br>
+<br>
+
+## Language and Tools
+
+<div>
+    <a href="https://reactjs.org/">
+    <img src="https://drive.google.com/uc?export=view&id=1DMqkFq0deeshUptQYcT6gWuCRgCO1ecD" title="React JS" alt="React JS" width="40"/>
+    </a>&nbsp;
+    <a href="https://www.javascript.com/">
+    <img src="https://drive.google.com/uc?export=view&id=1sYi_QrPDZEsF_1-5eQNRa84YFkcA_Qmi" title="Javascript" alt="Javascript" width="40"/>
+    </a>&nbsp;
+    <a href="https://www.w3schools.com/html/">
+    <img src="https://drive.google.com/uc?export=view&id=1XPJKzToBlrQmMSff1NDoSCftzk0QQEJV" title="HTML 5" alt="HTML 5" width="40"/></a>&nbsp;
+    <a href="https://tailwindcss.com/">
+    <img src="https://drive.google.com/uc?export=view&id=16JDQ5g9o2tpjaVNMhDQ3bq_pXlQ88Dmh" title="Tailwind CSS" alt="Tailwind CSS" width="40"/></a>&nbsp;
+    <a href="https://sweetalert.js.org/">
+    <img src="https://drive.google.com/uc?export=view&id=1ZomJX54kvjRHtbLvBlX3lgkB5ajwJhZQ" title="Sweet Alert" alt="Sweet Alert" height="20"/></a>&nbsp;
+    <a href="https://code.visualstudio.com/">
+    <img src="https://drive.google.com/uc?export=view&id=1z9m4T_AYh_1O2qSCWdNn7-TmplDBgink" title="Visual Studio" alt="Visual Studio" width="40"/></a>&nbsp;
+    <a href="https://www.coreldraw.com/en/">
+    <img src="https://drive.google.com/uc?export=view&id=1ncsn0Zo60LKYYmWblhe5JO8h1pb6qw2P" title="Corel Draw" alt="Corel Draw" width="40"/></a>&nbsp;
+    <a href="https://vercel.com/">
+    <img src="https://drive.google.com/uc?export=view&id=1i3h9awG8PtKshjU2Jsv1CBns4A32Pn8C" title="Vercel" alt="Vercel" width="40"/></a>&nbsp;
+    <a href="https://fontawesome.com/">
+    <img src="https://drive.google.com/uc?export=view&id=1Gw_F2roJLQG0bDQhz1s8Do6QbAVOTdDB" title="Fontawesome" alt="Font Awesome" width="40"/></a>&nbsp;
+    <a href="https://www.pexels.com/">
+    <img src="https://drive.google.com/uc?export=view&id=1m2kYibR6oOEXBINfz8O-22Km_n8a_8NB" title="Pexels" alt="Pexels" width="40"/></a>&nbsp;
+</div>
+<br>
+<br>
+
+<!-- ## Deployment
+
+This project deployed in Vercel:
+<br>
+<br> -->
+
+## Deploy on Local
 
 In the project directory, you can run:
 
@@ -11,60 +149,19 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `npm test`
+## About Me
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Hi! I'm Vera, find me on:
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p>
+    <a href="https://github.com/Verasoniya/ ">
+        <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" title="Github" alt="Github" width="40"/>&nbsp; Github
+    </a>
+</p>
+<p>
+    <a href="https://linkedin.com/in/septi-vera-soniya-737731246/ ">
+        <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In" width="40"/>&nbsp; Linked In
+    </a>
+</p>
