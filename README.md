@@ -1,6 +1,6 @@
 <div align="center">
     <br>
-        <img src="https://drive.google.com/uc?export=view&id=1D4LzZmGILLbY-PkzDE7KUrZRdzsf6ONM" alt="House Fancy" width="100px"/>
+        <img src="https://drive.google.com/uc?export=view&id=1D4LzZmGILLbY-PkzDE7KUrZRdzsf6ONM" alt="House Fancy" width="200px"/>
 
 # House Fancy
 
@@ -151,17 +151,84 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 <br>
 
-## About Me
+## Team
 
-Hi! I'm Vera, find me on:
+This project is built by frontend team and backend team.
 
-<p>
-    <a href="https://github.com/Verasoniya/ ">
-        <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" title="Github" alt="Github" width="40"/>&nbsp; Github
-    </a>
-</p>
-<p>
-    <a href="https://linkedin.com/in/septi-vera-soniya-737731246/ ">
-        <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In" width="40"/>&nbsp; Linked In
-    </a>
-</p>
+### Frontend Team :
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <img src="https://avatars.githubusercontent.com/u/101350715?v=4?s=100" width="100px;" alt="Andaru Akbar P."/>
+          <br>
+            <sub><b>Andaru Akbar P.</b></sub>
+          <br>      
+        <a href="https://github.com/andaruakbar">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" alt="Github - Andaru Akbar P." width="40"/>
+        </a>&nbsp;
+        <a href="https://linkedin.com/in/andaru-akbar-270484214/">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In - Andaru Akbar P." width="40"/>
+        </a>
+      </td>
+      <td align="center">
+        <img src="https://avatars.githubusercontent.com/u/105417025?v=4?s=100" width="100px;" alt="Septi Vera Soniya"/>
+          <br>
+            <sub><b>Septi Vera Soniya</b></sub>
+          <br>      
+        <a href="https://github.com/Verasoniya">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" alt="Github - Septi Vera Soniya" width="40"/>
+        </a>&nbsp;
+        <a href="https://linkedin.com/in/septi-vera-soniya-737731246/">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In - Septi Vera Soniya" width="40"/>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Backend Team :
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <img src="https://avatars.githubusercontent.com/u/42569290?v=4?s=100" width="100px;" alt="Wenseslaus Tyas Wicaksana"/>
+          <br>
+            <sub><b>Wenseslaus Tyas Wicaksana</b></sub>
+          <br>      
+        <a href="https://github.com/zenseslaus">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" alt="Github - Wenseslaus Tyas Wicaksana" width="40"/>
+        </a>&nbsp;
+        <a href="https://www.linkedin.com/in/wenseslaus-wicaksana-050595245/">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In - Wenseslaus Tyas Wicaksana" width="40"/>
+        </a>
+      </td>
+      <td align="center">
+        <img src="https://avatars.githubusercontent.com/u/75767019?v=4?s=100" width="100px;" alt="Faizal Ramadhan Sundara"/>
+          <br>
+            <sub><b>Faizal Ramadhan Sundara</b></sub>
+          <br>      
+        <a href="https://github.com/faizalsundara">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" alt="Github - Faizal Ramadhan Sundara" width="40"/>
+        </a>&nbsp;
+        <a href="https://www.linkedin.com/in/faizalramadhansundara24/">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In - Faizal Ramadhan Sundara" width="40"/>
+        </a>
+      </td>
+      <td align="center">
+        <img src="https://avatars.githubusercontent.com/u/42085806?v=4?s=100" width="100px;" alt="Rafki Maisya Rahman"/>
+          <br>
+            <sub><b>Rafki Maisya Rahman</b></sub>
+          <br>      
+        <a href="https://github.com/Rafkimaisya">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" alt="Github - Rafki Maisya Rahman" width="40"/>
+        </a>&nbsp;
+        <a href="https://www.linkedin.com/in/rafkimaisya/">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In - Rafki Maisya Rahman" width="40"/>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
