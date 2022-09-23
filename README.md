@@ -217,18 +217,6 @@ This project is built by frontend team and backend team.
           <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In - Faizal Ramadhan Sundara" width="40"/>
         </a>
       </td>
-      <td align="center">
-        <img src="https://avatars.githubusercontent.com/u/42085806?v=4?s=100" width="100px;" alt="Rafki Maisya Rahman"/>
-          <br>
-            <sub><b>Rafki Maisya Rahman</b></sub>
-          <br>      
-        <a href="https://github.com/Rafkimaisya">
-          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/github/github-original-wordmark.svg" alt="Github - Rafki Maisya Rahman" width="40"/>
-        </a>&nbsp;
-        <a href="https://www.linkedin.com/in/rafkimaisya/">
-          <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg" title="Linked In" alt="Linked In - Rafki Maisya Rahman" width="40"/>
-        </a>
-      </td>
     </tr>
   </tbody>
 </table>
